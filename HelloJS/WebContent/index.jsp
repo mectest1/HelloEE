@@ -13,9 +13,11 @@
 		<link type="text/css" rel="stylesheet" href="css/style.css"/>
 		<script type="text/javascript" src="js/Utils.js"></script>
 		<script type="text/javascript">
-			window.onload = function OnLoad(){
-				Utils.LayoutUtils.wireHeaderWithContainer("h4", "section");
-			}
+// 			window.onload = function OnLoad(){
+			self.addEventListener("load", function OnLoad(){
+// 				Utils.LayoutUtils.wireContainerWithHandler("h4", "section");
+				Utils.LayoutUtils.wireContainerWithHandler("section", "h4");
+			});
 		</script>
     </head>
     <body>
@@ -27,6 +29,7 @@
 		<section>
 			<h4>Promise from ES6</h4>
 			<p>Check some <a href="es6-promise.html">Promises from ES6</a>.</p>
+			<p>Check the <a href="html/html5-playground.html">HTML5 playground.</a>.</p>
 		</section>
     </body>
 </html>
