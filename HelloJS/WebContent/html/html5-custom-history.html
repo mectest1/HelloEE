@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<title>Custom History</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript" src="../js/Utils.js"></script>
+		<script type="text/javascript">
+//			var Html5CustomHistory = function Html5CustomHistory() {
+				var initialized = false;
+				function showText(updateHistory) {
+					document.getElementById("long_desc").style.display = "block";
+					if (updateHistory)
+						history.pushState(null, null, "?show");
+				}
+				function hideText(updateHistory) {
+					document.getElementById("long_desc").style.display = "none";
+					if (updateHistory)
+						history.pushState(null, null, location.href.replace(/\?show/, ""));
+				}
+				function toggleText() {
+					var elem = document.getElementById("long_desc");
+					if (elem.style && elem.style.display == "none")
+						showText(true);
+					else
+						hideText(true);
+				}
+				function manageText() {
+					if (location.href.match(/\?show/))
+						showText();
+					else
+						hideText();
+				}
+				
+//				function init(){
+					window.addEventListener("popstate", manageText, false);
+					window.addEventListener("DOMContentLoaded", function () {
+						document.getElementById("toggle").addEventListener("click", function (e) {
+							toggleText();
+							e.preventDefault();
+							return false;
+						}, false);
+						manageText();
+					}, false);
+					
+					initialized = true;
+//				}
+				
+//				function play(){
+//					initialized || init();
+//				}
+					
+//				return{
+//					play: play
+//				}
+//				
+//			}();
+
+		</script>
+	</head>
+	<body id="main">
+		<p>Here's a short description.</p>
+		<!--<div id="toggle"  onclick="Html5CustomHistory.play();">toggle</div>-->
+		<a id="toggle" href="#">toggle</a>
+		<p id="long_desc">Here's a longer description, which can be shown or hidden.</p>
+	</body>
+</html>
