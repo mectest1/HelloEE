@@ -1,4 +1,8 @@
 
+
+#2015-11-13
+Enable hot deployment in WildFly: <jsp-config development="true"/>
+
 #2015-05-28
 NetBeans custom Shortkeys:
 	Git Commit: Ctrl + Alt + O;
