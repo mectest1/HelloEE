@@ -1,0 +1,481 @@
+<html>
+	<head>
+		<title>Let's Paint</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript" src="../js/Utils.js"></script>
+		<script type="text/javascript">
+			var Html5CustomCanvas = function Html5CustomCanvas(){
+				
+				var CONTEXT = '2d';
+				var PLACEHOLDER_TEXT = "Click on the canvas to start painting";
+				var PLACEHOLDER_FONT = "1em sans-serif";
+				var IMG_URL = "../img/sven.jpg";
+				
+				function paintCanvas1(){
+					var myCanvas = $('#canvas-1');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					myContext.beginPath();
+					myContext.moveTo(10, 10);
+					myContext.lineTo(35, 35);	//draw a line path from (10, 10) to (35, 35);
+					
+					myContext.strokeStyle = "#000";
+					myContext.stroke();	//draw the line;
+					
+					myContext.beginPath();
+					myContext.arc(35, 35, 10, 0, Math.PI * 2, true);	//draw a circle
+					
+					myContext.fillStyle = "#f00";
+					myContext.fill();	//fill the circle solid
+					
+				}
+				
+				function paintCanvas2(){
+					console.log('painting canvas-2');
+					var myCanvas = $('#canvas-2');
+					var myContext = myCanvas.getContext(CONTEXT);
+//					debugger;
+//					myCanvas.width = 200;
+//					myCanvas.height = 200;
+//					myContext.translate(0, 0);
+//					myContext.moveTo(0, 0);
+					
+					myContext.beginPath();
+					myContext.arc(40, 40, 25, 0, Math.PI * 2, true);
+					myContext.closePath();
+					
+					myContext.fillStyle = "#f00";
+					myContext.fill();	//fill the circle solid/
+					
+					myContext.beginPath();
+					myContext.arc(70, 40, 25, 0, Math.PI * 2, true);
+					myContext.closePath();
+					
+					myContext.fillStyle = "rgba(0, 0, 255, 0.75)";
+					myContext.fill();
+					
+					myContext.beginPath();
+					myContext.arc(40, 70, 25, 0, Math.PI * 2, true);
+					myContext.closePath();
+					
+					myContext.fillStyle = "rgba(0, 255, 0, 0.25)";
+					myContext.fill();
+					
+					myContext.beginPath();
+					myContext.arc(70, 70, 25, 0, Math.PI * 2, true);
+					myContext.closePath();
+					
+					myContext.fillStyle = "rgba(255, 255, 0, 0.5)";
+					myContext.fill();
+					
+					myContext.fillStyle = 'black';
+					myContext.font = "12px serif";
+					myContext.fillText("Canvas-2", 10, 10);
+				}
+				
+				function paintCanvas3(){
+					console.log('painting canvas-3');
+					var myCanvas = $('#canvas-3');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					myContext.lineWidth =  "12";
+					myContext.lineJoin = "round";
+//					myContext.beginPath();
+					myContext.moveTo(20, 20);
+					myContext.lineTo(50, 50);
+					myContext.lineTo(20, 70);
+//					myContext.closePath();
+					myContext.stroke();
+					
+					
+					var lingrad = myContext.createLinearGradient(20, 20, 40, 60);
+					lingrad.addColorStop(0.3, "#0f0");
+					lingrad.addColorStop(1, "#fff");
+					myContext.fillStyle = lingrad;
+					
+					myContext.beginPath();
+					myContext.moveTo(0, 0);
+					myContext.lineTo(200, 0);
+					myContext.lineTo(200, 200);
+//					myContext.closePath();
+					myContext.fill();
+				}
+				
+				function paintCanvas4(){
+					var myCanvas = $('#canvas-4');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					var img = $('#canvas-4-img');
+					img.style.visibility = "visible";
+					var imgFill = myContext.createPattern(img, "repeat");
+					
+					myContext.fillStyle = imgFill;
+					myContext.fillRect(0, 0, 500, 500);
+				}
+				
+				function paintCanvas5(){
+					var myCanvas = $('#canvas-5');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					var img = new Image();
+					img.src = IMG_URL;
+					img.onload = function(){
+						myCanvas.setAttribute("width", img.width);
+						//myCanvas.setAttribute("height", img.height);
+						myCanvas.height = img.height;
+						myContext.drawImage(img, 0, 0);
+					};
+				}
+				
+				function paintCanvas6(){
+					var c6 = $('#canvas-6');
+					var c7 = $('#canvas-6-2');
+					var c8 = $('#canvas-6-3');
+					var c9 = $('#canvas-6-4');
+					var c10 = $('#canvas-6-5');
+					var c11 = $('#canvas-6-6');
+					
+					var ctx6 = c6.getContext(CONTEXT);
+					var ctx7 = c7.getContext(CONTEXT);
+					var ctx8 = c8.getContext(CONTEXT);
+					var ctx9 = c9.getContext(CONTEXT);
+					var ctx10 = c10.getContext(CONTEXT);
+					var ctx11 = c11.getContext(CONTEXT);
+					
+					var img = new Image();
+					img.src = IMG_URL;
+					img.onload = function(){
+						c6.width = img.width;
+						c7.height = img.height;
+						
+						ctx6.drawImage(img, 0, 0);
+						
+						var drawing = ctx6.getImageData(0, 0, c6.width, c6.height);
+						
+						var avg;
+						for(var i = 0; i < drawing.data.length; i += 4){
+							avg = (drawing.data[i] + drawing.data[i+1] + drawing.data[i+2])/3;
+							drawing.data[i] = drawing.data[i+1] = drawing.data[i+2] = avg;
+						}
+						ctx7.putImageData(drawing, 0, 0);
+						
+						
+						//
+						drawing = ctx6.getImageData(0, 0, c6.width, c6.height);
+						for(var i = 0; i < drawing.data.length; i += 4){
+							drawing.data[i] = 255 - drawing.data[i];
+							drawing.data[i+1] = 255 - drawing.data[i+1];
+							drawing.data[i+2] = 255 - drawing.data[i+2];
+						}
+						ctx8.putImageData(drawing, 0, 0);
+						
+						//
+						drawing = ctx6.getImageData(0, 0, c6.width, c6.height);
+						for(var i = 0; i < drawing.data.length; i+=4){
+							drawing.data[i+1] = drawing.data[i+2] = drawing.data[i];
+						}
+						ctx9.putImageData(drawing, 0, 0);
+						
+						//
+						drawing = ctx6.getImageData(0, 0, c6.width, c6.height);
+						for(var i = 0; i < drawing.data.length; i+=4){
+							drawing.data[i] = drawing.data[i+2] = drawing.data[i+1];
+						}
+						ctx10.putImageData(drawing, 0, 0);
+						
+						//
+						drawing = ctx6.getImageData(0, 0, c6.width, c6.height);
+						for(var i = 0; i < drawing.data.length; i+=4){
+							drawing.data[i] = drawing.data[i+1] = drawing.data[i+2];
+						}
+						ctx11.putImageData(drawing, 0, 0);
+					}
+				}
+				
+				function paintCanvas7(){
+					var myCanvas = $('#canvas-7');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					myContext.beginPath();
+					myContext.strokeStyle = "#f00";
+					myContext.translate(20, 20);
+					myContext.moveTo(0, 0);
+					myContext.lineTo(80, 10);
+					myContext.stroke();
+					
+					myContext.save();
+					
+					myContext.beginPath();
+					myContext.strokeStyle = "#00f";
+					myContext.rotate(Math.PI/4);
+					myContext.moveTo(0, 0);
+					myContext.arc(0, 0, 52, Math.PI/3, Math.PI/6, true);
+					myContext.closePath();
+					myContext.stroke();
+					
+					myContext.restore();
+					
+					myContext.beginPath();
+					myContext.moveTo(80, 10);
+					myContext.lineTo(14, 50);
+					myContext.stroke();
+				}
+				
+				function paintCanvas8(){
+					var myCanvas = $('#canvas-8');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					myContext.font = "25pt Arial";
+					myContext.fillText("Hello, World", 0, 25);
+					myContext.strokeText("Hello, World", 0, 75);
+					
+					myContext.lineWidth = 5;
+					myContext.strokeText("Hello, World", 0, 125)
+					
+					
+					myContext.lineWidth = 1;
+					myContext.fillStyle = "cyan";
+					myContext.fillText("Hello, World", 0, 175);
+					myContext.save();
+					
+					myContext.rotate(Math.PI/2);
+					myContext.moveTo(0, 0);
+					myContext.fillStyle = "#0f0";
+					myContext.fillText('Hello, World', 0, 0);
+					myContext.restore();
+					
+					myContext.save();
+					
+					myContext.translate(myCanvas.width, myCanvas.height);
+					myContext.rotate(-Math.PI/2);
+					myContext.fillStyle = "#00f";
+					myContext.fillText('Hello, World', 0, 0);
+					myContext.restore();
+				}
+				
+				function paintCanvas9(){
+					var myCanvas = $('#canvas-9');
+					var myContext = myCanvas.getContext(CONTEXT);
+					
+					myContext.clearRect(0, 0, myContext.canvas.width, myContext.canvas.height);
+					myContext.save();
+					myContext.beginPath();
+					myContext.arc(50, 50, 25, 0, Math.PI*2, true);
+					myContext.clip();
+					
+					myContext.fillStyle = "red";
+					myContext.font = "50pt Arial";
+					myContext.fillText("H", 25, 75);
+					myContext.restore();
+					
+					myContext.font = "25pt, Arial";
+					myContext.fillText("ello, World", 70, 70);
+				}
+				
+				function paintCanvas10(){
+					var myCanvas;
+					var myContext;
+					var ball_delta_x = 2.7, ball_delta_y = 2.5;
+					var BALL_RADIUS = 10, FRAME_RATE = 60;
+					var ball_x = BALL_RADIUS, ball_y = BALL_RADIUS;
+					var initialized = false;
+					var playing = false;
+					var animateInterval = null;
+					
+					var SHADOW_COLOR = ["#fcc", "#f99", "#f66", "#f33"];
+					var SHADOW_COUNT = SHADOW_COLOR.length;
+					var SHADOW_SHRINK_RATIO = 0.95;
+					var BALL_STYLE = "red";
+					var BALL_BOUNDARY_STYLE = "grey";
+					var shadows = [];
+					
+					var snapshotImage = null;
+					var snapshotInterval = null;
+					
+					function init(){
+						if(initialized){
+							return;
+						}
+						ball_delta_x += Math.random() % 0.7;
+						ball_delta_y += Math.random() % 0.7;
+						myCanvas = $('#canvas-10');
+						myContext = myCanvas.getContext(CONTEXT);
+						drawCircle(ball_x, ball_y);
+						
+						snapshotImage = new Image();
+//						snapshotImage.style = "transform: scaleX(-1); filter: FlipH;";
+						myCanvas.parentNode.appendChild(snapshotImage);
+		
+						initialized = true;
+						
+						
+					}
+					
+					
+					function drawCircle(x, y, color, radius){
+						myContext.beginPath();
+						var drawRadius = radius || BALL_RADIUS;
+						myContext.arc(x, y, drawRadius, 0, Math.PI * 2, true);
+						myContext.fillStyle = color || BALL_STYLE;
+//						myContext.strokeStyle = BALL_BOUNDARY_STYLE;
+						myContext.fill();
+//						isBall && myContext.stroke();
+					}
+					
+					function eraseFrame(){
+						myCanvas.width = myCanvas.width;	//clear the entire canvas
+//						myContext.clearRect(ball_x - BALL_RADIUS * (shadows.length + 1), 
+//							ball_y - BALL_RADIUS * (shadows.length + 1), 
+//							ball_x + BALL_RADIUS * (shadows.length + 1),
+//							ball_y + BALL_RADIUS * (shadows.length + 1)
+//						);
+					}
+					
+					function appendShadow(ball_x, ball_y){
+						shadows.push({ball_x: ball_x, ball_y: ball_y});
+						while(SHADOW_COUNT < shadows.length){
+							shadows.shift();
+						}
+						
+						for(var i = 0; i < shadows.length; ++i){
+							drawCircle(shadows[i].ball_x, shadows[i].ball_y, 
+									SHADOW_COLOR[i],
+//									BALL_RADIUS / Math.pow(2, shadows.length - i)
+									BALL_RADIUS * Math.pow(SHADOW_SHRINK_RATIO, shadows.length - i)
+									);
+						}
+					}
+					function animate(){
+						if(playing){
+							clearInterval(animateInterval);
+							clearInterval(snapshotInterval);
+							playing = false;
+						}else{
+							animateInterval = setInterval(animateFunc, 1000/FRAME_RATE);
+							snapshotInterval = setInterval(updateSnapshotImage, 10 * 1000 / FRAME_RATE);
+							playing = true;
+						}
+					}
+					
+					function animateFunc(){
+						initialized || init();
+						if(myCanvas.width < ball_x || 0 > ball_x){
+							ball_delta_x *= -1; 
+						}
+						if(0 > ball_y || myCanvas.height < ball_y){
+							ball_delta_y *= -1;
+						}
+						
+						ball_x += ball_delta_x;
+						ball_y += ball_delta_y;
+						
+						eraseFrame();
+						appendShadow(ball_x, ball_y);
+						drawCircle(ball_x, ball_y);
+					}
+					
+					
+					function updateSnapshotImage(){
+						var dataUrl = myCanvas.toDataURL();
+						snapshotImage.src = dataUrl;
+					}
+					
+					return{
+						animate: animate
+					};
+				}
+				return {
+					paintCanvas1: paintCanvas1,
+					paintCanvas2: paintCanvas2,
+					paintCanvas3: paintCanvas3,
+					paintCanvas4: paintCanvas4,
+					paintCanvas5: paintCanvas5,
+					paintCanvas6: paintCanvas6,
+					paintCanvas7: paintCanvas7,
+					paintCanvas8: paintCanvas8,
+					paintCanvas9: paintCanvas9,
+					paintCanvas10: paintCanvas10().animate
+				};
+			}();
+			
+		</script>
+		<style type="text/css">
+			canvas{
+				border: 1px solid green;
+				border-radius: 5px;
+				/*min-width: 100px;*/
+				/*min-height: 100px;*/
+			}
+			
+		</style>
+	</head>
+	<body>
+		<section id="main">
+		<p>Let's Paint on Canvas. Click on any canvas to start paint process</p>
+		<article>
+			<canvas id="canvas-1" onclick="Html5CustomCanvas.paintCanvas1();"
+					width ='100' height='100'
+					></canvas>
+<!--		</article>
+		<article>-->
+			<canvas id="canvas-2" onclick="Html5CustomCanvas.paintCanvas2();"
+					width ='100' height='100'
+					></canvas>
+<!--		</article>
+		<article>-->
+			<canvas id="canvas-3" onclick="Html5CustomCanvas.paintCanvas3();"
+					width ='200' height='200'
+					></canvas>
+			<img id="canvas-4-img" src="http://www.gnu.org/graphics/heckert_gnu.small.png" 
+				 width="145" height="140" style="visibility: hidden;"/>
+		</article>
+		<article>
+			<canvas id="canvas-4" onclick="Html5CustomCanvas.paintCanvas4();"
+					width ='500' height='500'
+					></canvas>
+			<canvas id="canvas-5" onclick="Html5CustomCanvas.paintCanvas5();"
+					width ='500' height='500'
+					></canvas>
+		</article>
+		<article>
+			<canvas id="canvas-6" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+			<canvas id="canvas-6-2" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+			<canvas id="canvas-6-3" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+			<br/>
+			<canvas id="canvas-6-4" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+			<canvas id="canvas-6-5" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+			<canvas id="canvas-6-6" onclick="Html5CustomCanvas.paintCanvas6();"
+					width ='200' height='200'
+					></canvas>
+		</article>
+		<article>
+			<canvas id="canvas-7" onclick="Html5CustomCanvas.paintCanvas7();"
+					width="200" height="200"
+					></canvas>
+			<canvas id="canvas-8" onclick="Html5CustomCanvas.paintCanvas8();"
+					width="200" height="200"
+					></canvas>
+			<canvas id="canvas-9" onclick="Html5CustomCanvas.paintCanvas9();"
+					width="200" height="200"
+					></canvas>
+		</article>
+		<article>
+			<canvas id="canvas-10" onclick="Html5CustomCanvas.paintCanvas10();"
+					width="200" height="200"
+					></canvas>
+		</article>
+		</section>
+	</body>
+</html>

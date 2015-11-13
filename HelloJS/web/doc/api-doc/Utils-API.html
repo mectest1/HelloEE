@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>Utils Library API Documentation</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+		<script type="text/javascript" src="../../js/Utils.js"></script>
+		<script type="text/javascript">
+			var UtilsAPI = function UtilsAPI(){
+				function onLoad(){
+					Utils.LayoutUtils.wireContainerWithHandler("article", "h4");
+				}
+				
+				return {
+					onLoad: onLoad
+				};
+			}();
+		</script>
+	</head>
+	<body onload="UtilsAPI.onLoad();">
+		<h1>Utils Library API Documentation</h1>
+		<section id="main">
+			<h1>Utils </h1>
+			<article>
+				<h4>Top modules & methods:</h4>
+				<ul>
+					<li>ajax</li>
+					<li>ajaxPromise (experimental)</li>
+					<li>getDatasetAttr</li>
+					<li>PromiseDIY (experimental)</li>
+					<li>PromiseUtils (experimental)</li>
+					<li>TextUtils</li>
+					<li>LayoutUtils</li>
+				</ul>
+				<dl>
+					<dt><strong>ajax</strong>(/*String*/ url, /*function(XMLHttpRequest xhr)*/ successFunc, 
+						/*function(XMLHttpRequest xhr)*/ failedFunc, /*String*/ responseType)</dt>
+					<dd>
+						<p>
+						</p>
+						<h5>Usage:</h5>
+						<p></p>
+					</dd>
+					<dt><strong>getDatasetAttr</strong>(/*HTMLElement*/ ele, /*String*/ attributeName)</dt>
+					<dd>
+						<p>
+							
+						</p>
+						<h5>Usage:</h5>
+						
+					</dd>
+				</dl>
+			</article>
+			<article>
+				<h4>TextUtils</h4>
+				<p></p>
+			</article>
+			<article>
+				<h4>LayoutUtils</h4>
+				<dl>
+					<dt><strong>wireContainerWithHandler</strong>(/*String*/ containerTagName, 
+							/*String*/ headerTagName, /*Object*/ wireOptions)</dt>
+					<dd>
+						<p>
+						</p>
+						<h5>Usage:</h5>
+						<p>
+							<strong>wireOptions:</strong>{<br/>
+							<em>initialCollapse</em>: true|false
+							<br/>}
+						</p>
+					</dd>
+					<dt><strong>insertContentIntoContainer</strong>(/*HTMLElement*/ containerTag, 
+							/*String*/ url, /*String*/ contentNodeId,
+							/*(Optional) Object*/ insertOptions)</dt>
+					<dd>
+						<p>
+						</p>
+						<h5>Usage: </h5>
+						<p>
+							<strong>insertOptions</strong> {<br/>
+							<em>appendHeaderInfo</em>: true|false
+							
+							<br/>}
+						</p>
+					</dd>
+
+				</dl>
+			</article>
+		</section>
+	</body>
+</html>

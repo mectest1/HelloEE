@@ -1,0 +1,107 @@
+<html>
+	<head>
+		<title>Custom drag & drop</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript">
+			var Html5CustomDraggable = function Html5CustomDraggable(){
+				
+				var initialized = false;
+				var catcher;
+				var draggable;
+				
+				function init(){
+					catcher = document.getElementById("catcher");
+					draggable = document.getElementById("draggable");
+					
+					
+					draggable.addEventListener("dragstart", function(event){
+						this.style.border = "3px dashed black";
+						
+						event.dataTransfer.effectAllowed = "move";
+						event.dataTransfer.setData("Text", this.id);
+						
+					});
+					
+					catcher.addEventListener("dragenter", function(event){
+						this.style.border = "3px solid red";
+					});
+					
+					catcher.addEventListener("dragleave", function(event){
+						this.style.border = "";
+					});
+					
+					draggable.addEventListener("dragend", function(event){
+						this.style.border = "";
+					});
+					
+					catcher.addEventListener("drop", function(event){
+						event.preventDefault && event.preventDefault();
+						event.stopPropagation && event.stopPropagation();
+						
+						this.style.border = "";
+						
+						var id = event.dataTransfer.getData("Text");
+						var element = document.getElementById(id);
+						element.parentNode.removeChild(element);
+						this.appendChild(element);
+						
+						
+						
+						var eleChild = element.firstChild;
+						while(eleChild){
+							var nextChild = eleChild.nextSibling;
+							element.removeChild(eleChild);
+							eleChild = nextChild;
+						}
+						var p = document.createElement("span");
+						var content = document.createTextNode("Thanks, guess I'm gona stay here for awhile.")
+						p.appendChild(content);
+						element.appendChild(p);
+						
+						return false;
+					});
+					
+					catcher.addEventListener("dragover", function(event){
+						event.preventDefault && event.preventDefault();
+						return false;
+					});
+					initialized = true;
+				}
+				function drag(){
+					initialized || init();
+				}
+				return{
+					drag: drag
+				};
+			}();
+		</script>
+		<style type="text/css">
+			#draggable{
+				background-color: yellow;
+				width: 100px;
+				height: 100px;
+				cursor: move; 
+			}
+			
+			#catcher{
+				background-color: lightgreen;
+				width: 150px;
+				height: 150px;
+				padding: 5px;
+				margin-bottom: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Custom Drag & Drop</h2>
+		<div id="main">
+			
+			<div id="catcher"></div>
+			<div id="draggable" draggable="true" onmousedown = "Html5CustomDraggable.drag();">
+				<p>Drag me and drop me into the box listed above.</p>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<html>
+	<head>
+		<title>Custom Audio Controller</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript" src="../js/Utils.js"></script>
+		<script type="text/javascript" src="html5-custom-audio-controller.js"></script>
+		<script type="text/javascript">
+//			console.log("Hello, ");
+//			console.log("World!");
+		</script>
+		<style type="text/css">
+			.playerControls{
+				color: yellow;
+			}
+			
+			.audioControlButton{
+				margin-top: 5px;
+			}
+			#audioPlay{
+				background-color: white;
+			}
+			
+			#audioPause{
+				background-color: white;
+			}
+
+			#audioStop{
+			}
+			
+			#audioPlay.hidden, #audioPause.hidden{
+				display: none;
+			}
+			
+			#audioSeek{
+				background-color: #EEE;
+				border: 1px solid black;
+				border-radius: 1em;
+				display: block;
+				height: 8px;
+				padding: 0;
+			}
+			
+			#audioLoaded{
+				background-color: #0C0;
+				border: 1px solid #0C0;
+				border-radius: 1em;
+				display: block;
+				height: 1px;
+				margin: 0;
+				width: 0;
+			}
+			
+			
+			#audioTimes{
+				float: right;
+				list-style: none;
+				margin: 5px 0 0;
+			}
+			
+			#audioTimes li{
+				font: bold 1em Arial, Helvetica sans-serif;
+				float: left;
+				color: black;
+			}
+			
+			#audioTimes li:first-child{
+				border-right: 1px solid black;
+				margin-right: 1em;
+				padding-right: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="player">
+			<audio id="fsw-song">
+				<source src="../audio/free-software-song-herzog.ogg"/>
+				<source src="https://www.gnu.org/music/free-software-song-herzog.ogg"/>
+				<source src="../audio/free-software-song-herzog.mp3"/>
+			</audio>
+			<div class="playerControls">
+				
+				<div id="audioSeek">
+					<div id="audioLoaded"></div>
+				</div>
+				
+				<button id="audioPlay" title="Play" class="audioControlButton"
+						onclick="CustomAudioController.playPause();">Play</button><!--&#x25ba;-->
+				<button id="audioPause" class="hidden audioControlButton" title="Pause"
+						onclick="CustomAudioController.playPause();">Pause</button><!--&#x2590;&#x2590;-->
+				<button id="audioStop" title="Stop"  class="audioControlButton"
+						onclick="CustomAudioController.playStop();">Stop</button><!--&#x25a0;-->
+				
+				<ul id="audioTimes">
+					<li id="audioElapsed">00:00:00</li>
+					<li id="audioDuration">00:00:00</li>
+				</ul>
+				<br style="clear:both;"/>
+			</div>
+		</div>
+	</body>
+</html>

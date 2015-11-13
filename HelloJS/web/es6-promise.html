@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<title>ES6 Primises</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/Utils.js"></script>
+	<script type="text/javascript">
+	    var ES6Promise = (function ES6Promise(){
+			//ref: https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch3.md
+			
+			
+			
+			function add(xPromise, yPromise){
+				return Promise.all([xPromise, yPromise]).then(function(values){
+					return values[0] + values[1];
+				});
+			}
+	//		add(fetchX(), fetchY()).then(function(sum){
+	//		    console.log(sum);
+	//		});
+
+			function init(){
+				console.log("Hello, ECMAScript 6!");
+				$("#requestButton").onclick = requestURL;
+				$("#promiseButton").onclick = requestPromiseUrl;
+				$("#promiseDIYButton").onclick = requestPromiseDIYUrl;
+				$("#promiseList").onclick = promiseList;
+				$("#request2Steps").onclick = promise2StepsText;
+				$("#generatorAjax").onclick = generatorAjaxRequest;
+			}
+
+
+			function requestURL(){
+				
+				//var url = this.dataset.requestUrl;
+				//var responseDispId = this.dataset.responseDisplayTextarea;
+				var url = Utils.getDatasetAttr(this, "requestUrl");
+				var responseDispId = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var textarea = $(responseDispId);
+
+				Utils.ajax(url, function(xhr){
+					var responseText = xhr.responseText;
+					textarea.value = responseText;
+				});
+			}
+			
+			function requestPromiseUrl(){
+				var promiseUrl = Utils.getDatasetAttr(this, "requestUrl");
+				var promiseDispId = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var textarea = $(promiseDispId);
+			
+				if(!window.Promise){
+					textarea.value = "Promise not supported in current Browser";
+					return;
+				}
+				
+				add(fetchNumber(promiseUrl), fetchNumber(promiseUrl)).then(function(value){
+					textarea.value = "result value: " + value;
+				});
+			}
+			
+			function requestPromiseDIYUrl(){
+				var promiseUrl = Utils.getDatasetAttr(this, "requestUrl");
+				var promiseDispId = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var textarea = $(promiseDispId);
+				
+				var promiseDIY = new Utils.PromiseDIY(function(resolve, reject){
+					var xhr = new XMLHttpRequest();
+//					xhr.open("GET", promiseUrl);
+					//clear buffer in IE, or simply disable catch in response header from server side.
+					xhr.open("GET", promiseUrl + "?" + Math.random());
+						
+					
+					xhr.send();
+					xhr.onload = function(){
+						if(200 === this.status){
+							resolve(this.responseText);
+						}else{
+							reject(this.statusText);;
+						}
+					};
+					xhr.onerror = function(){
+						reject(this.statusText);
+					}
+				}).then(function(value){
+					textarea.value = value;
+				});
+			}
+			
+			function fetchNumber(/*String*/ url){
+				return new Promise(function(resolve, reject){
+//					var number = 0;
+//					Utils.ajax(url, function(xhr){
+//						var responseText = xhr.responseText;
+//						number = parseInt(responseText);
+//					});
+//					
+//					return number;
+					//ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", url);
+					
+					xhr.send();
+					xhr.onload = function(){
+						if(200 === this.status){
+							resolve(parseInt(this.responseText));
+						}else{
+							reject(this.statusText);
+						}
+					};
+					xhr.onerror = function(){
+						reject(this.statusText);
+					};
+				});
+			}
+			
+			
+			function promiseList(){
+				if(!window.Promise){
+					textarea.value = "Native Promise unsupported in current browser";
+					return;
+				}
+				var dispText = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var textarea = $(dispText);
+				
+				var p3 = new Promise(function(resolve, reject){
+					resolve("B");
+				});
+				
+				var p1 = new Promise(function(resolve, reject){
+					resolve(p3);
+				});
+				
+				var p2 = new Promise(function(resolve, reject){
+					resolve("A");
+				});
+				
+				
+				function appendText(v){
+					textarea.value += v;
+				}
+				
+				//*NOTE* This is where Promise is *So* difference with Utils.PromiseDIY;
+				//Since for Promise, the wrapped Promises will always be resolved & returned 
+				//first before the .then() method is invoked, which doens't apply for current 
+				//version of Utils.PromiseDIY;
+				p1.then(appendText);	
+				
+				p2.then(appendText)
+				
+			}
+			
+			
+			function promise2StepsText(){
+				var url = Utils.getDatasetAttr(this, "requestUrl");
+				var dispTextareaId = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var dispTextarea = $(dispTextareaId);
+				
+				Utils.PromiseUtils.request(url).then(function(response1){
+					return Utils.PromiseUtils.request(response1);
+				}).then(function(response2){
+					dispTextarea.value = response2;
+				});
+			}
+
+			return {
+				init: init,
+				requestURL: requestURL
+			};
+
+		
+			function generatorAjaxRequest(){
+				var url = Utils.getDatasetAttr(this, "requestUrl");
+				var dispTextId = Utils.getDatasetAttr(this, "responseDisplayTextarea");
+				var dispText = $(dispTextId);
+				
+				function requestAjax(url){
+					Utils.ajax(url, function succ(xhr){
+						it.next(xhr.responseText);
+					}, function failed(xhr){
+						it.throw(xhr.statusText);
+					});
+				}
+				
+				function *main(){
+					var textNode;
+					dispText.firstChild && dispText.removeChild(dispText.firstChild);
+					try{
+						var text = yield requestAjax(url);
+						textNode = document.createTextNode(text);
+					}catch(err){
+						textNode = document.createTextNode(err);
+					}finally{
+						dispText.appendChild(textNode);
+					}
+				}
+				
+				var it = main();
+				
+				//start it all up
+				it.next();
+				
+			}
+	    })();
+	    
+	    //window.onload = ES6Promise.init;
+	    //var requestButtonClicked = ES6Promise.requestURL;
+	</script>
+    </head>
+    <body onload="ES6Promise.init()">
+	<div>ES6 Promise</div>
+	<form id="mainForm">
+		<section>
+			<input type="button" id="requestButton" value="Click to Request a number" 
+				data-request-url="ES6Promise"
+				data-response-display-textarea ="#responseText"
+				/>
+			<br/>
+			<textarea id="responseText" cols="50" rows="5"></textarea>
+		</section>
+		
+		<section>
+			<input type ="button" id="promiseButton" value ="Click to make a promise"
+				data-request-url="ES6Promise"
+				data-response-display-textarea ="#promiseText"
+				/>
+			<br/>
+			<textarea id="promiseText" cols="50" rows="5"></textarea>
+		</section>
+		
+		<section>
+			<input type ="button" id="promiseDIYButton" value="Click to make a PromiseDIY"
+				data-request-url="ES6Promise"
+				data-response-display-textarea ="#promiseDIYText"
+				/>
+			<br/>
+			<textarea id="promiseDIYText" cols="50" rows="5"></textarea>
+		</section>
+		
+		<section>
+			<input type="button" id="promiseList" value="Check the result of invoking multiple Promises"
+				   data-response-display-textarea ="#promiseListText"
+				   />
+			<br/>
+			<textarea id="promiseListText" cols="50" rows="5"></textarea>
+		</section>
+		
+		<section>
+			<input type="button" id="request2Steps" value="Make 2 steps request of Promises"
+				   data-request-url="ES6Promise?type=url"
+				   data-response-display-textarea ="#promise2StepsText"
+				   />
+			<br/>
+			<textarea id="promise2StepsText" cols="50" rows="5"></textarea>
+		</section>
+		
+	</form>
+	<div>
+		<section>
+			<button id="generatorAjax"
+					data-request-url="ES6Promise"
+					data-response-display-textarea="#generatorAjaxText"
+					>Make ajax request with Generator</button>
+			<br/>
+			<p id="generatorAjaxText"></p>
+		</section>
+	</div>
+    </body>
+</html>

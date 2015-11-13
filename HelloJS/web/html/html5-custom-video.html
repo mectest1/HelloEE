@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Video Sample</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<script type="text/javascript" src="../js/Utils.js"></script>
+	<script type="text/javascript">
+		//ref: http://techslides.com/sample-webm-ogg-and-mp4-video-files-for-html5
+		var CustomVideo = function CustomVideo(){
+			
+			var VID_WIDTH = 560;
+			var VID_HEIGHT = 320;
+			
+			var initialized = false;
+			
+			var video;
+			var canvas1;
+			var context1;
+
+			var canvas2;
+			var context2;
+			
+			function init(){
+				
+				video = $("#origVideo");
+				canvas1 = $("#previewMed");
+				context1 = canvas1.getContext('2d');
+				canvas2 = $("#previewSm");
+				context2 = canvas2.getContext('2d');
+				
+				canvas1.width = canvas1.height = canvas2.width = canvas2.height = 0;
+				canvas1.width = VID_WIDTH/2;
+				canvas1.height = VID_HEIGHT/2;
+				
+				canvas2.width = VID_WIDTH/4;
+				canvas2.height = VID_HEIGHT/4;
+				
+//				video.addEventListener('play', function onPlay(){
+//					drawVideo(this, context1, context2);
+//				});
+				initialized = true;
+			}
+			
+			function drawPreview(){
+				if(!initialized){
+					init();
+				}
+				if(video.ended || video.paused){
+					return false;
+				}
+				//
+				context1.drawImage(video, 0, 0, VID_WIDTH/2, VID_HEIGHT/2);
+				context2.drawImage(video, 0, 0, VID_WIDTH/4, VID_HEIGHT/4);
+				setTimeout(drawPreview, 25);
+			}
+				
+				
+				
+			return {
+				drawPreview: drawPreview
+			};
+		}();
+	</script>
+	<style type="text/css">
+		#previewMed, #previewSm{
+			background-color: grey;
+/*			width: 100px;
+			height: 100px;*/
+		}
+	</style>
+  </head>
+  <body>
+      <div id="player">
+		  <video controls width="560" height="320" id = "origVideo" onplaying="CustomVideo.drawPreview();"> 
+			  <source src="../video/techslides.com/small.ogv" type="video/ogg"/>
+			  <source src="../video/techslides.com/small.mp4" type="video/mp4"/>
+			  <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm"/> 
+			  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg"/> 
+			  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4"/>
+			  <source src="http://techslides.com/demos/sample-videos/small.3gp" type="video/3gp"/>
+			  You device does not support HTML5 video.
+		  </video>
+		  <!--<button title="Generate Preview" onclick="CustomVideo.generatePreview();">Generate Preview</button>-->
+		  <br/>
+		  <canvas id="previewMed"></canvas>
+		  <canvas id="previewSm"></canvas>
+	  </div>
+  </body>
+</html>

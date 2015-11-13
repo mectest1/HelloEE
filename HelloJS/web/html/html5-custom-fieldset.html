@@ -1,0 +1,60 @@
+<html>
+	<head>
+		<title>HTML5 fieldset in form element</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript" src="../js/Utils.js"></script>
+		<script type="text/javascript">
+			var Html5CustomFieldset = function Html5CustomFieldset(){
+				function updateFieldset(/*HtmlInputElement*/ node){
+					//node.parentNode.parentNode.parentNode.disabled = !node.checked;
+					var nodes = document.getElementsByName(node.name);					
+					for(var i = 0; i <nodes.length; ++i){
+						var nodei = nodes.item(i);
+						nodei.parentNode.parentNode.parentNode.disabled = !nodei.checked;
+					}
+				}
+				
+				return {
+					updateFieldset: updateFieldset
+				};
+			}();
+		</script>
+	</head>
+	<body>
+		<h2>HTML5 fieldset in form element</h2>
+		<form id="main">
+			<fieldset>
+				<legend>Store Credit Card</legend>
+				<p><label>Name displayed on your card:<input name="fullName"
+															 required></label></p>
+				<fieldset name="accountNum" disabled>
+					<legend>
+						<label>
+<!--							<input type="radio" name="accountType"
+								   onchange="form.accountNum.disabled = !checked;
+		form.accountLetters.disabled = checked"/>-->
+							<input type="radio" name="accountType" onchange="Html5CustomFieldset.updateFieldset(this);"/>
+							My account is a 12-digit number
+						</label>
+					</legend>
+					<p><label>Store card number: <input name="cardNum"
+														required></label></p>
+				</fieldset>
+				<fieldset name="accountLetters" disabled>
+					<legend>
+						<label>
+<!--							<input type="radio" name="accountType"
+								   onchange="form.accountLetters.disabled = !checked;
+		form.accountNum.disabled = checked"/>-->
+							<input type="radio" name="accountType" onchange="Html5CustomFieldset.updateFieldset(this);"/>
+							My account includes	letters and numbers
+						</label>
+					</legend>
+					<p><label>Store card code: <input name="cardLetters"></label></p>
+				</fieldset>
+			</fieldset>
+		</form>
+	</body>
+</html>

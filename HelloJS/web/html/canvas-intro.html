@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>Canvas Intro</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript">
+			"use strict";
+			var CanvasIntro = function CanvasIntro(){
+				
+				
+				function init(){
+					
+					strokeText16();
+					blitterImage15();
+					renderImage14();
+					blendMode13();
+					transparentShapes12();
+					scaleRectangle11();
+					rotateRectangle10();
+					shadowedCircle9();
+					curvedLines8();
+					radialCircle7();
+					radiantRectangle6();
+					gradientRectangle5();
+					rectangle4();
+					triangle3();
+					triangle2();
+					line1();
+				}
+				
+				
+				function newCanvasContext(/*Object*/config){
+					var canvas = document.createElement("canvas");
+					canvas.width = (config && config.width) || "256";
+					canvas.height = (config && config.height) || "256";
+					canvas.style.border = (config && config.border) || "1px dashed grey";
+					canvas.style.borderRadius = (config && config.borderRadius)|| "5px";
+					var ctx = canvas.getContext('2d');
+					
+					var div = document.createElement("div");
+					div.className = "canvas-container";
+					div.appendChild(canvas);
+					document.body.appendChild(div);
+					
+					return ctx;
+				}
+				
+				
+				function line1(){
+					var ctx = newCanvasContext();
+					
+					
+					ctx.strokeStyle = "black";
+					ctx.lineWidth = 3;
+					
+					ctx.beginPath();
+					ctx.moveTo(0, 0);
+					ctx.lineTo(128, 128);
+					ctx.stroke();
+				}
+				
+				function triangle2(){
+					var ctx = newCanvasContext();
+					
+					ctx.strokeStyle = "black";
+					ctx.lineWidth = 3;
+					ctx.fillStyle = "rgba(128, 128, 128, 0.5)";
+					
+					
+					//Connect lines together to form a triangle in the center of the canvas
+					ctx.beginPath();
+					ctx.moveTo(128, 85);
+					ctx.lineTo(170, 170);
+					ctx.lineTo(85, 170);
+					ctx.closePath();
+					ctx.fill();
+					ctx.stroke();
+				}
+				
+				function triangle3(){
+					var ctx = newCanvasContext();
+					
+					ctx.strokeStyle = "green";
+//					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+					ctx.lineWidth = 30;
+					ctx.fillStyle = "rgba(128, 25, 30, 0.5)";
+					plotPolygon(ctx, [[128, 85], [170, 170], [85, 170]]);
+					
+					ctx = newCanvasContext();
+					
+					ctx.strokeStyle = "green";
+//					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+					ctx.lineWidth = 30;
+					ctx.fillStyle = randomColorRGBA({randomAlpha: false});
+					plotPolygon(ctx, [[128, 85], [170, 170], [85, 170]], {closePath: true});
+				}
+				
+				function rectangle4(){
+					var ctx = newCanvasContext();
+					ctx.strokeStyle = "black";
+					ctx.lineWidth = 13;
+					ctx.fillStyle = randomColorRGBA();
+					
+					ctx.beginPath();
+					ctx.rect(50, 40, 70, 90);
+					ctx.stroke();
+					ctx.fill();
+					
+					
+					ctx.strokeStyle = "grey";
+					ctx.lineWidth = 14;
+					ctx.fillStyle = randomColorRGBA();
+					ctx.strokeRect(110, 170, 100, 50);
+					ctx.fillRect(110, 170, 100, 50);
+				}
+				
+				function gradientRectangle5(){
+					var ctx = newCanvasContext();
+					var linearGradient = ctx.createLinearGradient(64, 64, 192, 192);
+					linearGradient.addColorStop(0, "white");
+					linearGradient.addColorStop(1, "black");
+					ctx.fillStyle = linearGradient;
+					
+					ctx.strokeStyle = randomColorRGBA();
+					ctx.lineWidth = 5;
+					ctx.beginPath();
+					ctx.rect(64, 64, 128, 128);
+					ctx.fill();
+					ctx.stroke();
+				}
+				
+				function radiantRectangle6(){
+					var ctx = newCanvasContext();
+					var radialGradient = ctx.createRadialGradient(128, 128, 10, 128, 128, 96);
+					radialGradient.addColorStop(0, "white");
+					radialGradient.addColorStop(1, "black");
+					ctx.fillStyle = radialGradient;
+					
+					ctx.lineWidth = 10;
+					ctx.strokeStyle = randomColorRGBA();
+					ctx.beginPath();
+					ctx.rect(64, 64, 128, 128);
+					ctx.stroke();
+					ctx.fill();
+				}
+				
+				function radialCircle7(/*Object*/config){
+					var ctx = newCanvasContext();
+					ctx.strokeStyle = "black";
+					ctx.lineWidth  = 3;
+					
+					var gradient = ctx.createRadialGradient(96, 96, 12, 128, 128, 96);
+					gradient.addColorStop(0, "white");
+					gradient.addColorStop(1, "black");
+					ctx.fillStyle = gradient;
+					
+					if(config && config.castShadow){
+//						ctx.shadowColor = randomColorRGBA({randomAlpha: true});
+						ctx.shadowColor = "rgba(128, 128, 128, 0.9)";
+						ctx.shadowOffsetX = 5;
+						ctx.shadowOffsetY = 5;
+						ctx.shadowBlur = 10;
+					}
+					ctx.beginPath();
+//					ctx.arc(128, 128, 64, 0, 3/2 * Math.PI, false);
+					ctx.arc(128, 128, 64, 0, 2 * Math.PI, false);
+					ctx.stroke();
+					ctx.fill();
+				}
+				
+				function curvedLines8(){
+					var ctx = newCanvasContext();
+					
+					
+					ctx.strokeStyle = randomColorRGBA();
+					ctx.lineWidth = 8;
+					ctx.moveTo(32, 128);
+					ctx.quadraticCurveTo(128, 20, 224, 128);
+					ctx.stroke();
+					
+					ctx.strokeStyle = randomColorRGBA();
+					ctx.lineCap = "round";
+					ctx.beginPath();
+//					ctx.moveTo(96, 160);
+//					ctx.bezierCurveTo(64, 52, 256, 56, 256, 160);
+					ctx.moveTo(32, 128);
+					ctx.bezierCurveTo(32, 20, 224, 20, 224, 128);
+					ctx.stroke();
+				}
+				
+				function shadowedCircle9(){
+					radialCircle7({castShadow: true});
+				}
+				
+				
+				function rotateRectangle10(/*Object*/config){
+					var ctx = newCanvasContext();
+					
+//					ctx.strokeStyle = "black";
+					ctx.strokeStyle = randomColorRGBA();
+					ctx.lineWidth = 13;
+					ctx.fillStyle = randomColorRGBA({randomAlpha: true});
+					
+					ctx.save();
+					
+					ctx.translate(128, 128);
+					ctx.rotate(0.5);
+					if(config && config.scale){
+						var scaleX = config.scale.scaleX || 0.5;
+						var scaleY = config.scale.scaleY || 0.5;
+						ctx.scale(scaleX, scaleY);
+					}
+					
+					ctx.beginPath();
+					ctx.rect(-64, -64, 128, 128);
+					ctx.stroke();
+					ctx.fill();
+					
+					ctx.restore();
+				}
+				
+				function scaleRectangle11(){
+					var scale = Math.random() * 2 + 0.1;
+					rotateRectangle10({scale: {scaleX: scale, scaleY: scale}});
+				}
+				
+				function transparentShapes12(){
+					var ctx = newCanvasContext();
+					
+					
+					ctx.save();
+					ctx.fillStyle = randomColorRGBA();
+					ctx.beginPath();
+					ctx.globalAlpha = 0.6;
+					ctx.rect(32, 32, 128, 128);
+					ctx.fill();
+					ctx.restore();
+					
+					ctx.save();
+					ctx.fillStyle = randomColorRGBA();
+					ctx.beginPath();
+					ctx.globalAlpha = 0.3;
+					ctx.arc(160, 160, 64, 0, Math.PI * 2, false);
+					ctx.fill();
+					ctx.restore();
+				}
+				
+				
+				function blendMode13(){
+					var ctx = newCanvasContext();
+					var canvas = ctx.canvas;
+					var blendList = ["normal", 
+									"soft-light", "hard-light", "overlay", 
+									"lighten", "color-dodge", "screen",
+									"darken", "color-burn", "multiply", 
+									"difference", "exclusion"
+									];
+					var blendSelector = newSelectList(blendList);
+					blendSelector.addEventListener("change", updateCanvas);
+					
+					var compositeList = ["source-over", "destination-over",
+									"source-in", "destination-in", "source-out",
+									"destination-out",
+									"source-atop", "destination-atop", "lighter",
+									"darken", "xor", "copy"
+									];
+					
+					
+					var compositeSelector = newSelectList(compositeList);
+					compositeSelector.addEventListener("change", updateCanvas);
+					
+					
+					
+					canvas.className = "middle-size-canvas";
+					canvas.parentNode.appendChild(document.createElement("br"));
+					canvas.parentNode.appendChild(blendSelector);
+					canvas.parentNode.appendChild(compositeSelector);
+					
+					
+					function paintCanvas(){
+						ctx.save();
+						ctx.fillStyle = "red";
+						ctx.beginPath();
+						ctx.rect(32, 32, 128, 128);
+						ctx.fill();
+						ctx.restore();
+						
+						ctx.save();
+						ctx.fillStyle = "blue";
+						ctx.beginPath();
+						ctx.arc(160, 160, 64, 0, Math.PI * 2, false);
+						ctx.fill();
+						ctx.restore();
+					}
+					
+					function updateCanvas(event){
+						clearCanvas(canvas);
+						ctx.globalCompositeOperation = this.value;
+						paintCanvas();
+					}
+					
+					ctx.globalCompositeOperation = blendSelector[0];
+					paintCanvas();
+				}
+				
+				function renderImage14(){
+					var ctx = newCanvasContext();
+					var ctx3 = newCanvasContext();
+					
+					var catImage = new Image();
+					catImage.src = "https://raw.githubusercontent.com/kittykatattack/agd/master/chapter02/images/cat.png";
+					catImage.addEventListener("load", loadHandler);
+					
+					function loadHandler(){
+						ctx.strokeStyle = "black";
+						ctx.lineWidth = 3;
+						
+						ctx.beginPath();
+						ctx.rect(64, 64, 128, 128);
+						
+						var pattern = ctx.createPattern(catImage, "no-repeat");
+						ctx.fillStyle = pattern;
+						
+						//Offset the canvas to match the rectangle's x and y position;
+						//then start the imae fill from that point.
+						ctx.save();
+						ctx.translate(64, 64);
+						ctx.stroke();
+						ctx.fill();
+						ctx.restore();
+						
+						//---------------------------
+						ctx3.strokeStyle = randomColorRGBA();
+						ctx3.lineWidth = randInt(5, 15);
+						ctx3.beginPath();
+						ctx3.arc(128, 128, 64, 2 * Math.PI, false);
+						ctx3.stroke();
+						ctx3.clip();
+						ctx3.drawImage(this, 64, 64);
+					}
+					
+					var ctx2 = newCanvasContext();
+					var gnuImage = new Image();
+					gnuImage.src = "http://www.gnu.org/graphics/heckert_gnu.small.png";
+					gnuImage.addEventListener("load", function(){
+						ctx2.drawImage(this, 64, 64);
+					});
+					
+					
+				}
+				
+				
+				function blitterImage15(){
+					var ctx = newCanvasContext();
+					
+					var blitterImage = new Image();
+					blitterImage.src = "https://raw.githubusercontent.com/kittykatattack/agd/master/chapter02/images/tileset.png";
+					blitterImage.addEventListener("load", loadHandler);
+					
+					function loadHandler(){
+						ctx.drawImage(
+							this,		//image
+							192, 128,	//sx, sy
+							64, 64,		//sWidth, sHeight
+							96, 96,		//dx, dy
+							64, 64);	//dWidth, dHeight
+					}
+				}
+				
+				function strokeText16(){
+					var ctx = newCanvasContext();
+					
+					var content = "Hello, World!";
+					ctx.font = "36px 'Rockwell Extra Bold', 'Futura', sans-serif";
+					ctx.fillStyle = "red";
+					
+					var width = ctx.measureText(content).width;
+					var height = ctx.measureText('M').width;
+					
+					ctx.textBaseline = "top";
+					ctx.fillText(content, 
+//						-width/2,
+//						-height/2
+						ctx.canvas.width/2 - width/2,
+						ctx.canvas.height/2 - height/2
+					);
+				}
+				
+				
+				
+				
+				function plotPolygon(/*CanvasRenderingContext2D*/ctx, /*Array(x, y)*/points, /*Object*/ config){
+					ctx.beginPath();
+					ctx.moveTo(points[points.length -1][0], points[points.length -1][1]);
+					points.forEach(function(point){
+							ctx.lineTo(point[0], point[1]);
+						}
+					);
+					config && config.closePath && ctx.closePath();
+					ctx.stroke();
+					ctx.fill();
+				}
+				
+				function randInt(/*Number*/min, /*Number*/max){
+					return Math.floor(Math.random() * (max - min + 1) + min);
+				}
+				
+				function randomColorRGBA(/*Object*/ config){
+					var r = randInt(0, 255);
+					var g = randInt(0, 255);
+					var b = randInt(0, 255);
+					var a = (config && config.randomAlpha) ? Math.random() : 1;
+					return `rgba(${r}, ${g}, ${b}, ${a})`;
+//					return "rgba(" + r + ", " + g + ", " + b  + "," + a + ")";
+				}
+				
+				function newSelectList(/*Array(String)*/optionsList){
+					var selector = document.createElement("select");
+					optionsList.forEach(function(option){
+						var optionElement = document.createElement("option");
+						optionElement.value = option;
+						optionElement.text = option;
+						selector.add(optionElement);
+					});
+					return selector;
+				}
+				function clearCanvas(/*HtmlCanvasEelement*/canvas){
+					canvas.width = canvas.width;
+				}
+				
+				return {
+					init: init
+//					,randomColorRGBA: randomColorRGBA
+				}
+			}();
+			
+			
+		</script>
+		<style type="text/css">
+			.canvas-container{
+				float:left;
+				/*margin: 0 auto;*/
+/*				width: 260px;
+				height: 280px;*/
+			}
+			.canvas-container .middle-size-canvas{
+				width: 90%;
+				height: 90%;
+			}
+		</style>
+	</head>
+	<body onload="CanvasIntro.init();">
+		<div>Canvas Intro</div>
+	</body>
+</html>

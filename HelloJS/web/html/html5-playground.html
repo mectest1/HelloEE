@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HTML 5 Playground</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<script type="text/javascript" src="../js/Utils.js"></script>
+		<!--<script type="text/javascript" src="html5-custom-audio-controller.js"></script>-->
+		<script type="text/javascript">
+			var Html5Playground = function Html5Playgruond(){
+				function genWave(){
+					var audio = $("#audio-2");
+					var canvas = $("#main-canvas-2");
+					var context = canvas.getContext('2d');
+					audio.addEventListener("MozAudioAvailable", buildWave, false);
+					function buildWave (event){
+						var channels = audio.mozChannels;
+						var frameBufferLength = audio.mozFrameBufferLength;
+						var fbData = event.frameBuffer;
+						var stepInc = (frameBufferLength / channels) / canvas.width;
+						var waveAmp = canvas.height / 2;
+						//canvas.width = canvas.width;
+						context.beginPath();
+						context.moveTo(0, waveAmp - fbData[0] * waveAmp);
+						for (var i = 1; i < canvas.width; i++) {
+							context.lineTo(i, waveAmp - fbData[i * stepInc] * waveAmp);
+						}
+						context.strokeStyle = "#fff";
+						context.stroke();
+					}
+					audio.play();
+				}
+
+				
+				function OnLoad(){
+					Utils.LayoutUtils.wireContainerWithHandler("section", "h2", {"initialCollapse": true});
+					Utils.LayoutUtils.wireContainerWithHandler("article", "h3", {"initialCollapse": true});
+					Utils.LayoutUtils.wireContainerWithHandler("div", "h1");
+				}
+				
+				function requestCustomAudioController(){
+					var container = $("#custom-audio-controller");
+					var showButton = $("#custom-audio-controller-show-button");
+					var url = Utils.getDatasetAttr(showButton, "url") + (new Date().getTime());
+					var contentNodeId = Utils.getDatasetAttr(showButton, "contentId");
+					Utils.LayoutUtils.insertContentIntoContainer(container, url, contentNodeId, 
+						{
+							appendHeaderInfo: true
+						}
+					);
+//					container.removeChild(showButton);
+					showButton.parentNode.removeChild(showButton);
+				}
+				
+				function requestCustomVideoPreview(){
+					var container = $("#custom-video-preview");
+					var showButton = $("#custom-video-preview-show-button");
+					var url = Utils.getDatasetAttr(showButton, "url") +  (new Date().getTime());
+					var contentNodeId = Utils.getDatasetAttr(showButton, "contentId");
+					Utils.LayoutUtils.insertContentIntoContainer(container, url, contentNodeId, 
+						{
+							appendHeaderInfo: true
+						}
+					);
+					showButton.parentNode.removeChild(showButton);
+				}
+				
+				function requestCustomFieldset(){
+					var container = $("#custom-fieldset");
+					var showButton = $("#custom-fieldset-show-button");
+					var url = Utils.getDatasetAttr(showButton, "url");
+					var contentNodeId = Utils.getDatasetAttr(showButton, "contentId");
+					Utils.LayoutUtils.insertContentIntoContainer(container, url, contentNodeId, 
+						{
+							appendHeaderInfo: true
+						}
+					);
+					showButton.parentNode.removeChild(showButton);
+				}
+				
+				function requestCustomCanvas(){
+					var container = $('#custom-canvas');
+					var showButton = $('#custom-paint-canvas');
+					var url = Utils.getDatasetAttr(showButton, 'url') + new Date().getTime();
+					var contentNodeId = Utils.getDatasetAttr(showButton, 'contentId');
+					Utils.LayoutUtils.insertContentIntoContainer(container, url, contentNodeId, 
+						{
+							appendHeaderInfo: true
+						}
+					);
+					showButton.parentNode.removeChild(showButton);
+				}
+				
+				function requestCustomDraggable(){
+//					var container = $("#custom-paint-canvas");
+					var showButton = $("#custom-draggable-show-button");
+					var url = Utils.getDatasetAttr(showButton, "url") + new Date().getTime();
+					var contentId = Utils.getDatasetAttr(showButton, "contentId");
+					Utils.LayoutUtils.insertContentIntoContainer(showButton.parentNode, url, contentId, 
+						{
+							appendHeaderInfo: true
+						}
+					);
+					showButton.parentNode.removeChild(showButton);
+				}
+				
+				return {
+					OnLoad: OnLoad,
+					genWave: genWave,
+					requestCustomAudioController: requestCustomAudioController,
+					requestCustomVideoPreview: requestCustomVideoPreview,
+					requestCustomFieldset: requestCustomFieldset,
+					requestCustomCanvas: requestCustomCanvas,
+					requestCustomDraggable: requestCustomDraggable
+				};
+			}();
+		</script>
+		<style type="text/css">
+		</style>
+	</head>
+	<body onload="Html5Playground.OnLoad()">
+		<div>
+			<h1>HTML5 Playground</h1>
+			<p contenteditable>Try to get used to some HTML5 features. Let's play and have some fun.
+			(Tip: you may edit this paragraph as you see fit: just click here and you can type.)</p>
+		</div>
+		<section>
+			<h2>Newcomers</h2>
+			<article>
+				<h3>Tag: &lt;figure&gt;</h3>
+				<figure>
+					<img src="../img/sven.jpg" alt="Sven"/>
+					<figcaption>Here is Sven, and nice to meet you.</figcaption>
+				</figure>
+			</article>
+			<article>
+				<h3>Tag: &lt;details&gt; & &lt;summary&gt;</h3>
+				<details>
+					<summary>Here is the summary details</summary>
+					<p>And here is the other contents</p>
+				</details>
+			</article>
+			<article>
+				<h3>Native Audio with tag &lt;Audio&gt;</h3>
+				<audio controls>
+					<source src="../audio/free-software-song-herzog.ogg"/>
+					<source src="https://www.gnu.org/music/free-software-song-herzog.ogg"/>
+					<source src="../audio/free-software-song-herzog.mp3"/>
+					Download <a href="https://www.gnu.org/music/free-software-song-herzog.ogg"><em>Katie Herzog</em>  performing the <strong>Free Software Song</strong></a>
+					from <em>Parasyte</em> OST.
+				</audio>
+			</article>
+			<article class="test-failed">
+				<h3>When &lt;Audio&gt; meets &lt;Canvas&gt;</h3>
+				<audio id="audio-2">
+					<source src="../audio/free-software-song-herzog.ogg"/>
+					<source src="https://www.gnu.org/music/free-software-song-herzog.ogg"/>
+					<source src="../audio/free-software-song-herzog.mp3"/>
+					Seems failed for now.
+				</audio>
+				<canvas width="512" height="100"  id="main-canvas-2"
+						style="background-color: black;"></canvas>
+				<button title="Generate Waveform"
+						onclick="Html5Playground.genWave();">Generate Waveform</button>
+			</article>
+			<article id="custom-audio-controller">
+				<h3>Customize Audio Controller</h3>
+				<button id="custom-audio-controller-show-button" 
+						onclick="Html5Playground.requestCustomAudioController();"
+						data-url="html5-custom-audio-controller.html?"
+						data-content-id ="#player"
+						>Click to request custom Audio Controller</button>
+						
+			</article>
+			<article id="custom-video-preview">
+				<h3>Customize Video Preview with Canvas</h3>
+				<button id="custom-video-preview-show-button"
+						onclick ="Html5Playground.requestCustomVideoPreview();"
+						data-url="html5-custom-video.html?"
+						data-content-id="#player"
+					>Click to request custom Video preview with Canvas</button>
+			</article>
+			<article id="custom-fieldset">
+				<h3>Use &lt;fieldset&gt; to control availability of fields in it </h3>
+				<button id="custom-fieldset-show-button"
+						onclick="Html5Playground.requestCustomFieldset();"
+						data-url="html5-custom-fieldset.html?"
+						data-content-id="#main"
+						>
+					Click to request fieldset as handler.
+				</button>
+			</article>
+			<article id="custom-draggable">
+				<h3>Custom Drag & Drop</h3>
+				<button id="custom-draggable-show-button"
+					onclick="Html5Playground.requestCustomDraggable();"
+					data-url="html5-custom-draggable.html?"
+					data-content-id="#main"
+					>Click to request custom drag & drop example</button>
+			</article>
+		</section>
+		<section id="custom-canvas">
+			<h2>&lt;Canvas&gt;</h2>
+			<button id="custom-paint-canvas"
+					onclick="Html5Playground.requestCustomCanvas();"
+					data-url="html5-custom-canvas.html?"
+					data-content-id="#main"
+					>Click to request all those handlers</button>
+		</section>
+	</body>
+</html>

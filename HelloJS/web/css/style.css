@@ -1,0 +1,52 @@
+/* 
+    Created on : May 27, 2015, 4:15:59 PM
+    Author     : MEC
+*/
+
+*{
+	font-family: sans-serif;
+}
+
+h1{
+	padding: 0.5em;
+}
+h2, h3, h4{
+	border: 1px solid grey;
+	border-radius: 10px;
+	padding: 1em;
+}
+
+div, section, article, fieldset{
+	border: 1px solid silver;
+	border-radius: 5px;
+	padding: 0.2em 0.5em;
+}
+
+
+
+input[type="button"], button{
+	border-color: grey;
+	border-radius: 10px;
+	/*border-style: solid;*/
+}
+
+textarea{
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px grey;
+	resize: none;
+	font-family: monospace;
+	padding: 0.5em;
+	line-height: 1.4em;
+}
+
+
+/*----------------------------*/
+.expand-headers{
+	cursor: pointer;
+}
+.expand-headers:hover{
+	box-shadow: 2px 2px 5px grey;
+}
+.test-failed{
+	background-color: #EEE;
+}
