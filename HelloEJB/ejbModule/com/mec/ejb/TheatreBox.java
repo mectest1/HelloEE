@@ -25,7 +25,7 @@ import javax.ejb.TimerService;
 public class TheatreBox {
 	private Map<Integer, Seat> seats;
 	
-	@Resource
+//	@Resource
 	TimerService timerService;
 	
 	private static final long DURATION = TimeUnit.SECONDS.toMillis(6);
@@ -34,13 +34,13 @@ public class TheatreBox {
 		timerService.createSingleActionTimer(DURATION, new TimerConfig());
 	}
 	
-	@Timeout
+//	@Timeout
 	public void timeout(Timer timer){
 		System.out.println(String.format("[%s] Timer activated", getClass().getName()));
 		setupThreatre();
 	}
 	
-	@PostConstruct
+//	@PostConstruct
 	public void setupThreatre(){
 		seats = new HashMap<>();
 		int id = 0;
@@ -55,17 +55,17 @@ public class TheatreBox {
 		seats.put(seat.getId(), seat);
 	}
 	
-	@Lock(LockType.READ)
+//	@Lock(LockType.READ)
 	public Collection<Seat> getSeats(){
 		return Collections.unmodifiableCollection(seats.values());
 	}
 	
-	@Lock(LockType.WRITE)
+//	@Lock(LockType.WRITE)
 	public int getSeatPrice(int seatId) throws NoSuchSeatException{
 		return getSeat(seatId).getPrice();
 	}
 	
-	@Lock(LockType.WRITE)
+//	@Lock(LockType.WRITE)
 	public void buyTicket(int seatId) throws SeatBookedException, NoSuchSeatException{
 		final Seat seat = getSeat(seatId);
 		if(seat.isBooked()){
@@ -74,7 +74,7 @@ public class TheatreBox {
 		addSeat(seat.getBookedSeat());
 	}
 	
-	@Lock(LockType.READ)
+//	@Lock(LockType.READ)
 	private Seat getSeat(int seatId) throws NoSuchSeatException{
 		final Seat seat = seats.get(seatId);
 		if(null == seat){

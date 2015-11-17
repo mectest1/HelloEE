@@ -22,11 +22,11 @@ import com.mec.ejb.inter.TheatreBookerRemote;
 public class TheatreBooker implements TheatreBookerRemote {
 
 //	Logger logger = Logger.getLogger(TheatreBooker.class);
-	@EJB
+//	@EJB
 	private TheatreBox theatreBox;
 	private int money;
 	
-	@PostConstruct
+//	@PostConstruct
 	public void createCustomer(){
 		this.money = 100;
 	}
@@ -49,12 +49,12 @@ public class TheatreBooker implements TheatreBookerRemote {
 		return null;
 	}
 	
-	@Asynchronous
+//	@Asynchronous
 	public void bookSeatAsync(int seatId)throws NotEnoughMoneyException, NoSuchSeatException, SeatBookedException{
 		bookSeat(seatId);
 	}
 
-	@Asynchronous
+//	@Asynchronous
 	public Future<String> bookSeatAyncFuture(int seatId) throws NotEnoughMoneyException, NoSuchSeatException, SeatBookedException{
 		try{
 			Thread.sleep(1000);

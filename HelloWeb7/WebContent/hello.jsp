@@ -8,13 +8,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Hello, EE7</title>
+<jsp:include page="/WEB-INF/sub-page/styles.jsp"/>
+<style type="text/css">
+	ul.servlet-list{
+	}
+	ul.servlet-list li{
+		float: left;
+		margin: 0 1em;
+	}
+	
+	.clear-both{
+		clear:both;
+	}
+</style>
 </head>
 <body>
 <p>
 	Hello, and welcome!
 </p>
+<p>
 <c:out value="To this playground, my dear ${username}" />
+<br/>
+ContextPath: <c:out value="${pageContext.servletContext.contextPath}"/>
+</p>
+<div class="clear-both">
+<ul class="servlet-list">
+<c:forEach var="servlet" items="${servlets}" >
+	<li><a href="${pageContext.servletContext.contextPath}${servlet}">${servlet }</a></li>
+</c:forEach>
+</ul>
+<br class="clear-both"/>
+</div>
 </body>
 </html>

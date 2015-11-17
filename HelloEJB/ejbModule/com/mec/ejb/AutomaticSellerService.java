@@ -16,13 +16,13 @@ import com.mec.ejb.TheatreBox.Seat;
 //@Stateless
 public class AutomaticSellerService {
 
-	@EJB
+//	@EJB
 	private TheatreBox theatreBox;
 	
-	@Resource
+//	@Resource
 	private TimerService timerService;
 	
-	@Schedule(hour = "*", minute="*/1", persistent = false)
+//	@Schedule(hour = "*", minute="*/1", persistent = false)
 	public void automaticCustomer() throws NoSuchSeatException{
 		final Optional<Seat> seatOptional = findFreeSeat();
 		if(!seatOptional.isPresent()){

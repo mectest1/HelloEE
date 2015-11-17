@@ -4,6 +4,7 @@ import static com.mec.servlets.WSConstants.SUCCESS;
 
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -22,11 +23,16 @@ public class WSIndex extends HttpServlet {
 
     public WSIndex() {
         super();
+        
     }
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String succUrl = getInitParameter(SUCCESS);
+    	succUrl = getInitParameter(SUCCESS);
+		request.setAttribute(WSConstants.ATTR_SERVLET_LIST, WSConfig.getServletList());
+//		ServletContext sc = getServletContext();
+//		String ctxPath = sc.getContextPath();
+		
 		request.getRequestDispatcher(succUrl).forward(request, response);
 	}
 
@@ -35,4 +41,5 @@ public class WSIndex extends HttpServlet {
 		doGet(request, response);
 	}
 
+    private String succUrl;
 }

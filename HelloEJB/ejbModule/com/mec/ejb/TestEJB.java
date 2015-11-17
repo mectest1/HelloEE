@@ -1,7 +1,7 @@
 package com.mec.ejb;
 
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 
 import com.mec.ejb.inter.Greetings;
 
@@ -10,6 +10,10 @@ import com.mec.ejb.inter.Greetings;
  */
 //@Stateless
 //@LocalBean
+//@Default
+//@Model
+@RequestScoped
+@Named
 public class TestEJB implements Greetings{
 
     public TestEJB() {

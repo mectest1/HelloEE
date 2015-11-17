@@ -13,7 +13,7 @@ import com.mec.ejb.inter.TheatreInfoRemote;
 //@Remote(TheatreInfoRemote.class)
 public class TheatreInfo implements TheatreInfoRemote {
 
-	@Override
+//	@Override
 	public String printSeatList() {
 		final Collection<Seat> seats = box.getSeats();
 		final StringBuilder sb = new StringBuilder();
@@ -24,6 +24,6 @@ public class TheatreInfo implements TheatreInfoRemote {
 		return sb.toString();
 	}
 
-	@EJB
+//	@EJB
 	private TheatreBox box;
 }
