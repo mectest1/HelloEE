@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--ref:http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html-->
+<!-- DTD for properties -->
+<!-- ref: http://docs.oracle.com/javase/7/docs/api/java/util/Properties.html -->
+<!ELEMENT properties ( comment?, entry* ) >
+
+<!ATTLIST properties version CDATA #FIXED "1.0">
+
+<!ELEMENT comment (#PCDATA) >
+
+<!ELEMENT entry (#PCDATA) >
+
+<!ATTLIST entry key CDATA #REQUIRED>

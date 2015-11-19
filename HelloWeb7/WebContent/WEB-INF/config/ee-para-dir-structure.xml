@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE EE_PARA SYSTEM "EE_PARA_v2.6.dtd">
+<!-- This fils is used to describe the file structure in EE_PARAM -->
+<EE_PARA>
+	<EE_LIB>
+		<entry></entry>
+	</EE_LIB>
+	<EE_SYS>
+		<SYST>
+			<entry name="sys_para">sys_para.xml</entry>
+		</SYST>
+	</EE_SYS>
+	<EEConfig>
+		<entry></entry>
+	</EEConfig>
+	<EELog>
+		<entry></entry>
+	</EELog>
+</EE_PARA>

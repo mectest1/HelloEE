@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT EE_PARA (EE_LIB, EE_SYS, EEConfig, EELog, INTFConfig?, mfvr?, RMILog?, SignGraphics?, TRXATA?, VTB?)>
+
+<!ELEMENT EE_LIB (entry*)>
+<!ELEMENT EE_SYS (SYST?)>
+<!ELEMENT EEConfig (entry*)>
+<!ELEMENT EELog (entry*)>
+<!ELEMENT INTFConfig (#PCDATA)>
+<!ELEMENT mfvr (#PCDATA)>
+<!ELEMENT RMILog (#PCDATA)>
+<!ELEMENT SignGraphics (#PCDATA)>
+<!ELEMENT TRXATA (#PCDATA)>
+<!ELEMENT VTB (#PCDATA)>
+
+<!ELEMENT entry (#PCDATA)>
+<!ATTLIST entry 
+	type CDATA #IMPLIED
+	name CDATA #IMPLIED
+	desc CDATA #IMPLIED
+>
+
+<!ELEMENT SYST (entry*)>

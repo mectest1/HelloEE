@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: HelloEJB.jar
+Main-Class: com.mec.client.Main
+
