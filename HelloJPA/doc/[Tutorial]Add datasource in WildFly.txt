@@ -3,7 +3,7 @@
 1, To add driver as module in WildFly 9:
 	1, Start WildFly;
 	2, jboss-cli.sh/bat --connect
-	3, module add --name=org.postgresql.v94 --slot=main --resource=~/postgresql-9.4-1205.jdbc42.jar --dependencies=javax.api,javax.transaction.api
+	3, module add --name=org.postgresql.v94 --slot=main --resources=~/postgresql-9.4-1205.jdbc42.jar --dependencies=javax.api,javax.transaction.api
 	4, Open standalone.xml/domain.xml, locatte to /server/profile/subsystem=datasource/datasources/drivers, 
 		add driver for postgresql:
 		<driver name="postgresql-9.4" module="org.postgresql.v94">
