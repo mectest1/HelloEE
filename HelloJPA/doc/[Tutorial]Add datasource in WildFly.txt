@@ -1,0 +1,34 @@
+
+#Tutorial on how to add module & data source in WildFly: 3015-11-19
+1, To add driver as module in WildFly 9:
+	1, Start WildFly;
+	2, jboss-cli.sh/bat --connect
+	3, module add --name=org.postgresql.v94 --slot=main --resource=~/postgresql-9.4-1205.jdbc42.jar --dependencies=javax.api,javax.transaction.api
+	4, Open standalone.xml/domain.xml, locatte to /server/profile/subsystem=datasource/datasources/drivers, 
+		add driver for postgresql:
+		<driver name="postgresql-9.4" module="org.postgresql.v94">
+            <xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+        </driver>
+    5, Re-start wildfly and enter into the Web Admin console, Configuration -> Subsytems -> Datasources -> Non-XA -> Add Datasource
+    	Enter related info as you wish and save. Final result in standalone.xml:
+    	/server/profile/subssytem=datasource/datasources:
+    	<datasource jta="true" jndi-name="java:jboss/datasources/PostgresDS-app1" pool-name="PostgresDS-app1" enabled="true" use-ccm="true">
+	        <connection-url>jdbc:postgresql://localhost:5432/app1</connection-url>
+	        <driver-class>org.postgresql.Driver</driver-class>
+	        <driver>postgresql-9.4</driver>
+	        <security>
+	            <user-name>jboss</user-name>
+	            <password>jboss@app1</password>
+	        </security>
+	        <validation>
+	            <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+	            <background-validation>true</background-validation>
+	            <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+	        </validation>
+	    </datasource>
+    	
+    6, 
+    Note:
+    6, This may all be achieved through JBoss CLI or jboss-cli.sh/bat --gui
+    
+2, 
