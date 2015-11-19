@@ -3,7 +3,7 @@ package com.mec.pojo.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class Company {
 	@Id
 	private String companyName;

@@ -3,4 +3,5 @@
 <properties>
 	<entry key="/test"></entry>
 	<entry key="/index"></entry>
+	<entry key="/ee-config"></entry>
 </properties>
