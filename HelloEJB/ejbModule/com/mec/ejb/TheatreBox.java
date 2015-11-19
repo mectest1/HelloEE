@@ -7,26 +7,28 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.ejb.AccessTimeout;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.Timeout;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.ejb.TimerService;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
+import com.mec.pojo.entity.Seat;
 
 //@Singleton
 //@Startup
 //@AccessTimeout(value = 5, unit = TimeUnit.MINUTES)
 ////@ConcurrencyManagement(ConcurrencyManagementType.BEAN)
+@ApplicationScoped
 public class TheatreBox {
 	private Map<Integer, Seat> seats;
 	
 //	@Resource
 	TimerService timerService;
+	
+	@Inject
+	private Event<Seat> seatEvent;
 	
 	private static final long DURATION = TimeUnit.SECONDS.toMillis(6);
 	
@@ -40,7 +42,7 @@ public class TheatreBox {
 		setupThreatre();
 	}
 	
-//	@PostConstruct
+	@PostConstruct
 	public void setupThreatre(){
 		seats = new HashMap<>();
 		int id = 0;
@@ -71,7 +73,10 @@ public class TheatreBox {
 		if(seat.isBooked()){
 			throw new SeatBookedException(String.format("Seat %s already booked!", seatId));
 		}
+		final Seat bookedSeat = seat.getBookedSeat();
 		addSeat(seat.getBookedSeat());
+		
+		seatEvent.fire(bookedSeat);
 	}
 	
 //	@Lock(LockType.READ)
@@ -83,43 +88,7 @@ public class TheatreBox {
 		return seat;
 	}
 	
-	public static class Seat{
-		private final int id;
-		private final String description;
-		private final int price;
-		private boolean booked = false;
-		private Seat bookedSeat;
-		
-		public Seat(int id, String type, int price) {
-			super();
-			this.id = id;
-			this.description = type;
-			this.price = price;
-		}
-
-		public int getId() {
-			return id;
-		}
-		public String getDescription() {
-			return description;
-		}
-		public int getPrice() {
-			return price;
-		}
-
-		public boolean isBooked() {
-			return booked;
-		}
-
-		public Seat getBookedSeat() {
-			return bookedSeat;
-		}
-
-		@Override
-		public String toString() {
-			return "Seat [id=" + id + ", description=" + description + ", price=" + price + "]";
-		}
-	}
+	
 	
 	public static class NoSuchSeatException extends Exception{
 		public NoSuchSeatException(String msg){

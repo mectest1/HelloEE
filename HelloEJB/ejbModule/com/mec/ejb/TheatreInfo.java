@@ -2,15 +2,20 @@ package com.mec.ejb;
 
 import java.util.Collection;
 
-import javax.ejb.EJB;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
+import javax.annotation.PostConstruct;
+import javax.enterprise.event.Observes;
+import javax.enterprise.event.Reception;
+import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-import com.mec.ejb.TheatreBox.Seat;
 import com.mec.ejb.inter.TheatreInfoRemote;
+import com.mec.pojo.entity.Seat;
 
 //@Stateless
 //@Remote(TheatreInfoRemote.class)
+@Model
 public class TheatreInfo implements TheatreInfoRemote {
 
 //	@Override
@@ -23,7 +28,25 @@ public class TheatreInfo implements TheatreInfoRemote {
 		}
 		return sb.toString();
 	}
+	
+	@PostConstruct
+	public void retrieveAlLSeatsOrderedByName(){
+		seats = box.getSeats();
+	}
+	
+	@Produces
+	@Named
+	public Collection<Seat> getSeats(){
+		return seats;
+	}
+	
+	public void onMemberListChagned(@Observes(notifyObserver = Reception.IF_EXISTS) final Seat member){
+		retrieveAlLSeatsOrderedByName();
+	}
 
 //	@EJB
+	@Inject
 	private TheatreBox box;
+	
+	private Collection<Seat> seats;
 }

@@ -3,19 +3,20 @@ package com.mec.ejb;
 import java.util.Collection;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.Schedule;
-import javax.ejb.Stateless;
 import javax.ejb.Timer;
 import javax.ejb.TimerService;
+import javax.inject.Inject;
 
 import com.mec.ejb.TheatreBox.NoSuchSeatException;
-import com.mec.ejb.TheatreBox.Seat;
+import com.mec.ejb.inter.Logger;
+import com.mec.pojo.entity.Seat;
 
 //@Stateless
 public class AutomaticSellerService {
 
+	@Inject
+	private Logger logger;
+	
 //	@EJB
 	private TheatreBox theatreBox;
 	
