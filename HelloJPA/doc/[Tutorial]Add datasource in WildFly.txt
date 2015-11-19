@@ -32,3 +32,14 @@
     6, This may all be achieved through JBoss CLI or jboss-cli.sh/bat --gui
     
 2, 
+
+
+
+
+
+
+
+
+A1, References:
+[1] https://access.redhat.com/documentation/en-US/JBoss_Enterprise_Application_Platform/6/html/Administration_and_Configuration_Guide/Example_PostgreSQL_XA_Datasource.html
+[2] 
