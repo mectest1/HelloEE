@@ -2,6 +2,7 @@ package com.mec.ejb;
 
 import java.io.Serializable;
 
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -21,4 +22,7 @@ public class LoggingInterceptor implements Serializable{
 		return context.proceed();
 	}
 	
+	
+//	@Inject
+//	private Logger logger;
 }
