@@ -20,7 +20,7 @@
 <!-- 			<property name="hibernate.archive.autodetection" value="class" /> -->
 <!-- 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> -->
 <!-- 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" /> -->
-<!-- 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres" /> -->
+<!-- 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/app1" /> -->
 <!-- 			<property name="hibernate.connection.username" value="app1" /> -->
 <!-- 			<property name="hibernate.connection.password" value="app1@postgres" /> -->
 <!-- 			<property name="hibernate.show_sql" value="true"/> -->
@@ -28,4 +28,25 @@
 <!-- 			<property name="hibernate.hbm2ddl.auto" value="update" /> -->
 <!-- 		</properties> -->
 <!-- 	</persistence-unit> -->
+
+	<persistence-unit name="PostgreSQL-app1">
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<jta-data-source>java:jboss/datasources/PostgresDS-app1</jta-data-source>
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+		</properties>
+	</persistence-unit>
 </persistence>
+
+
+<!-- 
+A1: References:
+[1] https://docs.jboss.org/author/display/WFLY8/JPA+Reference+Guide#JPAReferenceGuide-UpdateyourPersistence.xmlforHibernate4.3.0
+[2] https://docs.jboss.org/hibernate/entitymanager/3.5/reference/en/html/configuration.html
+[3] https://docs.jboss.org/jbossas/docs/Server_Configuration_Guide/4/html/ch01s02s01.html
+[4] 
+
+ -->
