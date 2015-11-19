@@ -18,7 +18,7 @@
 	        <driver>postgresql-9.4</driver>
 	        <security>
 	            <user-name>jboss</user-name>
-	            <password>jboss@app1</password>
+	            <password>jboss_password</password>
 	        </security>
 	        <validation>
 	            <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
@@ -26,8 +26,12 @@
 	            <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
 	        </validation>
 	    </datasource>
-    	
-    6, 
+    6, (Optinoal): Create database as well as admin user for current application;
+    	--example SQL script
+    	create database app1;
+		create user jboss with password 'jboss_password';
+		grant all privileges on database app1 to jboss;
+	7,  
     Note:
     6, This may all be achieved through JBoss CLI or jboss-cli.sh/bat --gui
     
