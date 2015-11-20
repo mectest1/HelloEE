@@ -8,6 +8,7 @@ import javax.ejb.TimerService;
 import javax.inject.Inject;
 
 import com.mec.ejb.TheatreBox.NoSuchSeatException;
+import com.mec.ejb.inter.FromJBoss;
 import com.mec.ejb.inter.Logger;
 import com.mec.pojo.entity.Seat;
 
@@ -15,6 +16,8 @@ import com.mec.pojo.entity.Seat;
 public class AutomaticSellerService {
 
 	@Inject
+//	@Named("JBossLogger")
+//	@FromJBoss
 	private Logger logger;
 	
 //	@EJB

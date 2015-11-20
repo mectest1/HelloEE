@@ -73,10 +73,16 @@ public class TheatreBox {
 		if(seat.isBooked()){
 			throw new SeatBookedException(String.format("Seat %s already booked!", seatId));
 		}
+		seat.setBooked(true);
 		final Seat bookedSeat = seat.getBookedSeat();
-		addSeat(seat.getBookedSeat());
+//		addSeat(seat.getBookedSeat());
+		addSeat(seat);
 		
 		seatEvent.fire(bookedSeat);
+	}
+	
+	public void reclaimTickets(){
+		setupThreatre();
 	}
 	
 //	@Lock(LockType.READ)
@@ -88,8 +94,7 @@ public class TheatreBox {
 		return seat;
 	}
 	
-	
-	
+
 	public static class NoSuchSeatException extends Exception{
 		public NoSuchSeatException(String msg){
 			super(msg);

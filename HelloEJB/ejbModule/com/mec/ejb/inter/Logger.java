@@ -1,6 +1,8 @@
 package com.mec.ejb.inter;
 
-public interface Logger {
+import java.io.Serializable;
+
+public interface Logger extends Serializable{
 
 	void info(Object obj);
 	void warn(Object obj);

@@ -3,6 +3,7 @@ package com.mec.ejb;
 import java.util.Collection;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Model;
@@ -30,7 +31,7 @@ public class TheatreInfo implements TheatreInfoRemote {
 	}
 	
 	@PostConstruct
-	public void retrieveAlLSeatsOrderedByName(){
+	public void retrieveAllSeatsOrderedByName(){
 		seats = box.getSeats();
 	}
 	
@@ -40,8 +41,16 @@ public class TheatreInfo implements TheatreInfoRemote {
 		return seats;
 	}
 	
+//	
+//	@Produces
+//	@Named
+//	public TheatreBooker getTheatreBooker(){
+//		return theatreBooker;
+//	}
+	
+	
 	public void onMemberListChagned(@Observes(notifyObserver = Reception.IF_EXISTS) final Seat member){
-		retrieveAlLSeatsOrderedByName();
+		retrieveAllSeatsOrderedByName();
 	}
 
 //	@EJB
@@ -49,4 +58,7 @@ public class TheatreInfo implements TheatreInfoRemote {
 	private TheatreBox box;
 	
 	private Collection<Seat> seats;
+	
+//	@Inject
+//	private TheatreBooker theatreBooker;
 }

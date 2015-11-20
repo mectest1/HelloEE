@@ -36,7 +36,7 @@ public class Seat implements Serializable {
 	private Seat bookedSeat;
 	
 	@ManyToOne
-	@JoinColumn(name="seat_id")
+	@JoinColumn(name="SEAT_ID")
 	private SeatType seatType;
 	
 	public Seat(int id, String type, int price) {
@@ -76,6 +76,7 @@ public class Seat implements Serializable {
 
 	public void setBooked(boolean booked) {
 		this.booked = booked;
+		bookedSeat = this;
 	}
 
 	public Seat getBookedSeat() {

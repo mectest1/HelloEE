@@ -1,6 +1,6 @@
 package com.mec.ejb;
 
-import javax.decorator.Decorator;
+import javax.inject.Named;
 
 import org.jboss.logging.Logger;
 
