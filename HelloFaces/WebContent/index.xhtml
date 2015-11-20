@@ -10,7 +10,7 @@
 		<h:form id="req">
 <!-- 			<h3>Money: $#{theatreBooker.accountBalance}</h3> -->
 			<h3>Money: $#{theatreBooker.accountBalance}</h3>
-			<h:message for="req" errorClass="error" infoClass="info" globalOnly="true"/>
+			<h:message for="req" errorClass="error" infoClass="info"/>
 			<h:panelGrid columns="1" border="1" styleClass="smoke">
 				<h:dataTable var="_seat" value="#{seats}" rendered="#{not empty seats}" 
 								styleClass="simpletablestyle">
@@ -41,6 +41,9 @@
 			<div>
 				<h:commandButton id="reclaim" value="Reclaim Money" action="#{theatreBooker.reclaimMoney()}"/>
 			</div>
+			<p>
+				<h:outputText>Back to <a href="/HelloWeb7/">the world of JSP</a></h:outputText>
+			</p>
 		</h:form>
 	</ui:define>
 </ui:composition>

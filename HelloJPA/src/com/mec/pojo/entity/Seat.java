@@ -15,6 +15,10 @@ import javax.persistence.Transient;
  * Entity implementation class for Entity: Seat
  *
  */
+/**
+ * @author MEC
+ *
+ */
 @Entity
 @Table(name="SEAT")
 public class Seat implements Serializable {
@@ -32,6 +36,7 @@ public class Seat implements Serializable {
 	private String name;
 	private int price;
 	private boolean booked;
+	
 	@Transient
 	private Seat bookedSeat;
 	
@@ -91,11 +96,20 @@ public class Seat implements Serializable {
 		return serialVersionUID;
 	}
 
+	public SeatType getSeatType() {
+		return seatType;
+	}
+
+	public void setSeatType(SeatType seatType) {
+		this.seatType = seatType;
+	}
+
 	@Override
 	public String toString() {
 		return "Seat [id=" + id + ", name=" + name + ", price=" + price + ", booked=" + booked + ", bookedSeat="
-				+ bookedSeat + "]";
+				+ bookedSeat + ", seatType=" + seatType + "]";
 	}
+
 }
 
 

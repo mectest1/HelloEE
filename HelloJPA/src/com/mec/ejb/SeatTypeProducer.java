@@ -15,8 +15,8 @@ import com.mec.pojo.entity.SeatType;
 @RequestScoped
 public class SeatTypeProducer {
 	
-//	@Inject
-	@EJB
+	@Inject
+//	@EJB
 	private SeatTypeDAO seatTypeDAO;
 	
 	private List<SeatType> seatTypes;

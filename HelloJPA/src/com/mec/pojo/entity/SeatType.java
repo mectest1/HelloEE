@@ -44,6 +44,7 @@ public class SeatType implements Serializable {
 	@NotNull	
 	private int quantity;	
 	
+	
 	//Bi-directional one-to-many association to Seat
 	@OneToMany(mappedBy="seatType", fetch=FetchType.EAGER)
 	private List<Seat> seats;
@@ -54,6 +55,68 @@ public class SeatType implements Serializable {
 		super();
 	}
 	
+	
+	public SeatType(Long id, String description, int price, int quantity, List<Seat> seats, SeatPosition position) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
+		this.seats = seats;
+		this.position = position;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public List<Seat> getSeats() {
+		return seats;
+	}
+
+	public void setSeats(List<Seat> seats) {
+		this.seats = seats;
+	}
+
+	public SeatPosition getPosition() {
+		return position;
+	}
+
+	public void setPosition(SeatPosition position) {
+		this.position = position;
+	}
+
+
+
 	public static enum SeatPosition{
 		 ORCHESTRA("Orchestra", "orchestra")
 		,BOX("Box", "box")
