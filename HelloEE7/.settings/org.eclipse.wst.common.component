@@ -5,5 +5,24 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="HelloJS.war" deploy-path="/" handle="module:/resource/HelloJS/HelloJS">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HelloJSF.war" deploy-path="/" handle="module:/resource/HelloJSF/HelloJSF">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HelloEJB.jar" deploy-path="/" handle="module:/resource/HelloEJB/HelloEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HelloClientApp.jar" deploy-path="/" handle="module:/resource/HelloClientApp/HelloClientApp">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="HelloJPA.jar" deploy-path="/lib" handle="module:/resource/HelloJPA/HelloJPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>
