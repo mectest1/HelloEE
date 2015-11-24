@@ -25,7 +25,7 @@
 </head>
 <body>
 <p>
-Refresh to get the newest results. Automatic refresh in every <span id="time-out">10</span> second(s).
+Refresh to get the newest results. Automatic refresh in <span id="time-out">10</span> second(s).
 </p>
 <div>
 <table>
