@@ -9,10 +9,23 @@
 <meta http-equiv="refresh" content="10"/>
 <jsp:include page="/WEB-INF/sub-page/styles.jsp" />
 <title>View Seats Info</title>
+<script type="text/javascript">
+	window.addEventListener("load", function(e){
+		var timeOut = document.getElementById("time-out");
+		var curTime; 
+		setInterval(function(){
+			curTime = parseInt(timeOut.firstChild.nodeValue);
+			curTime -= 1;
+// 			timeOut.replaceChild(timeOut.firstChild, document.createTextNode(curTime));
+			timeOut.removeChild(timeOut.firstChild);
+			timeOut.appendChild(document.createTextNode(curTime));
+		}, 1000);
+	});
+</script>
 </head>
 <body>
 <p>
-Refresh to get the newest results. Automatic refresh in every 10 seconds.
+Refresh to get the newest results. Automatic refresh in every <span id="time-out">10</span> second(s).
 </p>
 <div>
 <table>
