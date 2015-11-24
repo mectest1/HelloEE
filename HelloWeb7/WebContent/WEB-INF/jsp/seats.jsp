@@ -5,18 +5,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<meta http-equiv="refresh" content="10"/>
 <jsp:include page="/WEB-INF/sub-page/styles.jsp" />
 <title>View Seats Info</title>
 </head>
 <body>
 <p>
-Refresh to get the newest results.
+Refresh to get the newest results. Automatic refresh in every 10 seconds.
 </p>
 <div>
 <table>
+	<col><col><col><col><col><col>
 	<thead>
 		<tr>
+			<th>Index</th>
 			<th>Name</th>
 			<th>Price</th>
 			<th>Booked</th>
@@ -24,8 +27,9 @@ Refresh to get the newest results.
 			<th>Position</th>
 		</tr>
 	</thead>
-	<c:forEach var="seat" items="${seats }">
+	<c:forEach var="seat" items="${seats }" varStatus="status">
 		<tr>
+			<td>${status.index + 1}
 			<td>${seat.name }</td>
 			<td>${seat.price }</td>
 			<td>${seat.booked }</td>

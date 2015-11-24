@@ -1,20 +1,27 @@
-package com.mec.ejb;
+package com.mec.ejb.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
+import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import com.mec.pojo.entity.Seat;
 
+//@SessionScoped
 @RequestScoped
-public class SeatProducer {
+//@Singleton
+//@Stateless
+public class SeatProducer implements Serializable{
 	
+	private static final long serialVersionUID = 6846741836452186914L;
+
 	@Inject
 //	@EJB
 	private SeatDAO seatDao;
@@ -31,6 +38,7 @@ public class SeatProducer {
 	@Produces
 	@RequestScoped
 //	@Named
+	@Default
 	public List<Seat> getSeats(){
 		return seats;
 	}

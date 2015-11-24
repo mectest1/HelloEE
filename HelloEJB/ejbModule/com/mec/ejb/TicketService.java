@@ -6,11 +6,13 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
+import com.mec.ejb.dao.SeatDAO;
+import com.mec.ejb.dao.SeatTypeDAO;
 import com.mec.ejb.inter.Logger;
 import com.mec.pojo.entity.Seat;
 import com.mec.pojo.entity.SeatType;
 
-@Stateless
+//@Stateless
 public class TicketService {
 	@Inject
 	private Logger logger;

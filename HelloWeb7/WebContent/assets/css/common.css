@@ -1,1 +1,32 @@
 @CHARSET "UTF-8";
+
+table{
+	 border-collapse: collapse;
+}
+
+tr:nth-child(even){
+	background-color: #FFC;
+}
+
+tr:nth-child(odd){
+	background-color: #FFF;
+}
+
+
+col:first-child{
+	background-color: #CCC; 
+}
+/* col:nth-child(2n+3){ */
+/* 	background-color: #FFC; */
+/* } */
+table td, table th{
+	border: 1px solid grey;
+}
+
+
+
+/**
+References:
+[1] http://www.w3.org/Style/Examples/007/evenodd.en.html
+[2] 
+*/

@@ -43,6 +43,9 @@ ul.servlet-list li {
 		</ul>
 		<br class="clear-both" />
 	</div>
+	<div class="clear-both">
+		
+	</div>
 	<br/><br/>
 	<div>
 		Or you want to head to <a href="/HelloJSF/faces/index.xhtml">The world

@@ -11,8 +11,8 @@ import javax.inject.Named;
 
 import com.mec.ejb.inter.Logger;
 
-@Named
-@ViewScoped
+//@Named
+//@ViewScoped
 public class BookerService implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

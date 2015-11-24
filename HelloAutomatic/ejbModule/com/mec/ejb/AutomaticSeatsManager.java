@@ -8,14 +8,14 @@ import javax.ejb.TimerService;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import com.mec.ejb.SeatDAO;
-import com.mec.ejb.SeatTypeDAO;
+import com.mec.ejb.dao.SeatDAO;
+import com.mec.ejb.dao.SeatTypeDAO;
 import com.mec.ejb.inter.Logger;
 import com.mec.pojo.entity.Seat;
 import com.mec.pojo.entity.SeatType;
 import com.mec.pojo.entity.SeatType.SeatPosition;
 
-@Singleton
+//@Singleton
 @Startup
 public class AutomaticSeatsManager {
 	
@@ -42,13 +42,12 @@ public class AutomaticSeatsManager {
 	public void populatesSeats(){
 		SeatType type = new SeatType("Derp Type" , (int)(100 * Math.random()), (int)(10*Math.random()), SeatPosition.BALCONY);
 		seatTypeDao.persist(type);
-		typeEvent.fire(type);
+//		typeEvent.fire(type);
 		logger.info("new seat Type persisted");
 		
 		
 		Seat s = new Seat("Derp Seat" + randId(), type.getPrice(), false, type);
 		seatDao.persist(s);
-//		em.persist(s);
 		event.fire(s);
 		logger.info("new seat persisted");
 	}

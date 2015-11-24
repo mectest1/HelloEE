@@ -14,7 +14,7 @@ import javax.inject.Named;
 import com.mec.pojo.entity.SeatType;
 import com.mec.pojo.entity.SeatType.SeatPosition;
 
-@Model
+//@Model
 public class TheaterSetupService {
 	private static final String VIEW_BOOK = "book";
 	private static final String VIEW_START = "/index";

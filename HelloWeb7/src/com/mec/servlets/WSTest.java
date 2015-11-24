@@ -3,23 +3,19 @@ package com.mec.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mec.ejb.inter.Greetings;
 import com.mec.ejb.inter.Logger;
-import com.mec.pojo.entity.Seat;
-import com.mec.servlets.WSConstants.AttrInjectType;
 import com.mec.servlets.beans.CommandParser;
+import com.mec.servlets.beans.PageForwarder;
 
 //import com.mec.ejb.TestEJB;
 
@@ -45,22 +41,44 @@ public class WSTest extends HttpServlet {
 		super();
     }
 
+	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		commandMap.put("seats", seatsForwarder);
+		commandMap.put("ejb", cdiForwarder);
+		commandMap.put("cdi", ejbForwarder);
+	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType(CONTENT_TYPE);
-		Greetings g = gCdi;
+//		Greetings g = gCdi;
 		String type = request.getParameter(WSConstants.ATTR_TYPE);
 		
-		String forwardPage = commandMap.get(type);
-		if(null != forwardPage){
-			request.setAttribute("seats", seats);
-			request.getRequestDispatcher(forwardPage).forward(request, response);
+		PageForwarder forward = commandMap.get(type);
+		if(null != forward){
+//			request.setAttribute("seats", seats);
+//			request.getRequestDispatcher(forwardPage).forward(request, response);
+			forward.forward(request, response);
 		}
 		
-		if(AttrInjectType.EJB.getValue().equalsIgnoreCase(type)){
-			g = gEjb;
-		}
+//		if(AttrInjectType.EJB.getValue().equalsIgnoreCase(type)){
+//			g = gEjb;
+//		}
 		try(PrintWriter out = response.getWriter()){
-			out.println(String.format(MESSAGE, g.greeting()));
+//			out.println(String.format(MESSAGE, g.greeting()));
+			StringBuilder types = new StringBuilder();
+			types.append("<ul>");
+			for(String command : commandMap.keySet()){
+				types.append(String.format("<li><a href=\"%s%s?type=%s\">%s</a></li>", 
+						request.getContextPath(),
+						request.getServletPath(),
+						command,
+						command
+						));
+			}
+			out.println(String.format(MESSAGE, types));
 		}
 		logger.info("Hello");
 	}
@@ -68,15 +86,15 @@ public class WSTest extends HttpServlet {
 		doGet(request, response);
 	}
 
-	@Inject
+//	@Inject
 //	@Any
-	@Named("helloCDI")
-	private Greetings gCdi;
+//	@Named("helloCDI")
+//	private Greetings gCdi;
 	
-	@Inject
+//	@Inject
 //	@Default
-	@Named("testEJB")
-	private Greetings gEjb;
+//	@Named("testEJB")
+//	private Greetings gEjb;
 	
 //	@Inject
 //	private TestEJB testEjb;	//failed: may only able to inject interfaces;
@@ -97,15 +115,29 @@ public class WSTest extends HttpServlet {
 	@Inject
 	private CommandParser parser;
 	
+//	@Inject
+//	private List<Seat> seats;
+	
+	
+	private static Map<String, PageForwarder> commandMap = new HashMap<>();
+	
+	
 	@Inject
-	private List<Seat> seats;
+	@Named("EjbForwarder")
+	private PageForwarder ejbForwarder;
 	
+	@Inject
+	@Named("CDIForwarder")
+	//Single injection point, multiple instantiation: new instance will be created for each request
+	private PageForwarder cdiForwarder;	
 	
-	private static Map<String, String> commandMap = new HashMap<>();
-	static{
-		commandMap.put("seats", "/WEB-INF/jsp/seats.jsp");
-//		commandMap.put("query", "");
-//		commandMap.put("delete", "");
+	@Inject
+	@Named("SeatsForwarder")
+	private PageForwarder seatsForwarder;
+//	static{
+//		commandMap.put("seats", SeatsForwarder.getPageForwarder());
+//		commandMap.put("ejb", EjbForwarder.getPageForwarder());
+//		commandMap.put("cdi", CDIForwarder.getPageForwarder());
 //		commandMap.put("", "");
 //		commandMap.put("", "");
 //		commandMap.put("", "");
@@ -114,5 +146,5 @@ public class WSTest extends HttpServlet {
 //		commandMap.put("", "");
 //		commandMap.put("", "");
 //		commandMap.put("", "");
-	}
+//	}
 }

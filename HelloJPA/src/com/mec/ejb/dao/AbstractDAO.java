@@ -1,4 +1,4 @@
-package com.mec.ejb;
+package com.mec.ejb.dao;
 
 import java.io.Serializable;
 import java.util.List;

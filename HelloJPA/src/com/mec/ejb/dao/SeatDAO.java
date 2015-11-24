@@ -1,4 +1,4 @@
-package com.mec.ejb;
+package com.mec.ejb.dao;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
