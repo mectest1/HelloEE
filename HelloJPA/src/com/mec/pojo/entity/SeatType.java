@@ -55,6 +55,13 @@ public class SeatType implements Serializable {
 		super();
 	}
 	
+	public SeatType(String description, int price, int quantity, SeatPosition position){
+		this.description = description;
+		this.price = price;
+		this.quantity = quantity;
+		this.position = position;
+	}
+	
 	
 	public SeatType(Long id, String description, int price, int quantity, List<Seat> seats, SeatPosition position) {
 		super();
@@ -146,7 +153,7 @@ public class SeatType implements Serializable {
 		private static Map<String, SeatPosition> label2Position = new HashMap<>(); 
 		static{
 			for(SeatPosition pos : SeatPosition.values()){
-				label2Position.put(pos.getLabel(), pos);
+				label2Position.put(pos.getDatabaseRepresentation(), pos);
 			}
 		}
 	}

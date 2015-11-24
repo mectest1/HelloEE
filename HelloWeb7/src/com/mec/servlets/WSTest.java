@@ -2,6 +2,9 @@ package com.mec.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -12,17 +15,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mec.ejb.inter.FromJBoss;
 import com.mec.ejb.inter.Greetings;
 import com.mec.ejb.inter.Logger;
+import com.mec.pojo.entity.Seat;
 import com.mec.servlets.WSConstants.AttrInjectType;
+import com.mec.servlets.beans.CommandParser;
 
 //import com.mec.ejb.TestEJB;
 
 /**
  * Servlet implementation class TestServlet
  */
-@WebServlet("/test")
+//@WebServlet("/test")
+@WebServlet(urlPatterns={
+		"/test",
+		"/test/*"
+})
 public class WSTest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,8 +48,15 @@ public class WSTest extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType(CONTENT_TYPE);
 		Greetings g = gCdi;
-		String injectType = request.getParameter(WSConstants.ATTR_TYPE);
-		if(AttrInjectType.EJB.getValue().equalsIgnoreCase(injectType)){
+		String type = request.getParameter(WSConstants.ATTR_TYPE);
+		
+		String forwardPage = commandMap.get(type);
+		if(null != forwardPage){
+			request.setAttribute("seats", seats);
+			request.getRequestDispatcher(forwardPage).forward(request, response);
+		}
+		
+		if(AttrInjectType.EJB.getValue().equalsIgnoreCase(type)){
 			g = gEjb;
 		}
 		try(PrintWriter out = response.getWriter()){
@@ -76,6 +91,28 @@ public class WSTest extends HttpServlet {
 //	@Inject
 //	private FacesContext ctx;
 	
+//	@Inject
+//	private EntityManager em;
+	
 	@Inject
-	private EntityManager em;
+	private CommandParser parser;
+	
+	@Inject
+	private List<Seat> seats;
+	
+	
+	private static Map<String, String> commandMap = new HashMap<>();
+	static{
+		commandMap.put("seats", "/WEB-INF/jsp/seats.jsp");
+//		commandMap.put("query", "");
+//		commandMap.put("delete", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+//		commandMap.put("", "");
+	}
 }

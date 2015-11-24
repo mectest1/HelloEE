@@ -24,5 +24,9 @@
         <dependent-module archiveName="HelloJPA.jar" deploy-path="/lib" handle="module:/resource/HelloJPA/HelloJPA">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="HelloAutomatic.jar" deploy-path="/" handle="module:/resource/HelloAutomatic/HelloAutomatic">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

@@ -29,6 +29,13 @@ public class Seat implements Serializable {
 	public Seat() {
 		super();
 	}
+	
+	public Seat(String name, int price, boolean booked, SeatType seatType){
+		this.name = name;
+		this.price = price;
+		this.booked = booked;
+		this.seatType = seatType;
+	}
    
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

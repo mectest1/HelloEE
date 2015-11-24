@@ -16,7 +16,7 @@ import com.mec.pojo.entity.Seat;
 
 //@Stateless
 //@Remote(TheatreInfoRemote.class)
-@Model
+//@Model
 public class TheatreInfo implements TheatreInfoRemote {
 
 //	@Override

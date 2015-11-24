@@ -1,17 +1,18 @@
 package com.mec.ejb;
 
-import javax.ejb.Stateless;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import com.mec.pojo.entity.SeatType;
 
 //@Stateless
 //@LocalBean
 //@Singleton
-//@Transactional
-//@ApplicationScoped
-@Stateless
+@Transactional
+@ApplicationScoped
+//@Stateless
 public class SeatTypeDAO extends AbstractDAO<SeatType>{
 
 	private static final long serialVersionUID = 1L;

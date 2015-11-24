@@ -3,6 +3,7 @@ package com.mec.ejb;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
@@ -28,6 +29,7 @@ public class SeatProducer {
 	}
 	
 	@Produces
+	@RequestScoped
 //	@Named
 	public List<Seat> getSeats(){
 		return seats;
