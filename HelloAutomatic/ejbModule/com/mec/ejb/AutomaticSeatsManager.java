@@ -1,6 +1,5 @@
 package com.mec.ejb;
 
-import javax.annotation.Resource;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -11,11 +10,12 @@ import javax.inject.Inject;
 import com.mec.ejb.dao.SeatDAO;
 import com.mec.ejb.dao.SeatTypeDAO;
 import com.mec.ejb.inter.Logger;
+import com.mec.ejb.inter.MessageDispatcher;
 import com.mec.pojo.entity.Seat;
 import com.mec.pojo.entity.SeatType;
 import com.mec.pojo.entity.SeatType.SeatPosition;
 
-//@Singleton
+@Singleton
 @Startup
 public class AutomaticSeatsManager {
 	
@@ -38,6 +38,9 @@ public class AutomaticSeatsManager {
 	@Inject
 	private Event<SeatType> typeEvent;
 	
+	@Inject
+	private MessageDispatcher seatsMsg;
+	
 	@Schedule(hour="*", minute="*", second="*/10", persistent=false)
 	public void populatesSeats(){
 		SeatType type = new SeatType("Derp Type" , (int)(100 * Math.random()), (int)(10*Math.random()), SeatPosition.BALCONY);
@@ -48,8 +51,9 @@ public class AutomaticSeatsManager {
 		
 		Seat s = new Seat("Derp Seat" + randId(), type.getPrice(), false, type);
 		seatDao.persist(s);
+		seatsMsg.sendMessage(Integer.toString(s.getId()));
 		event.fire(s);
-		logger.info("new seat persisted");
+//		logger.info("new seat persisted");
 	}
 	
 	@Schedule(hour="*", minute="*/2", persistent=false)

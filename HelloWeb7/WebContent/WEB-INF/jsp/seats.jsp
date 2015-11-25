@@ -13,19 +13,22 @@
 	window.addEventListener("load", function(e){
 		var timeOut = document.getElementById("time-out");
 		var curTime; 
+		var interval = 1;
 		setInterval(function(){
 			curTime = parseInt(timeOut.firstChild.nodeValue);
-			curTime -= 1;
+			curTime -= interval;
 // 			timeOut.replaceChild(timeOut.firstChild, document.createTextNode(curTime));
-			timeOut.removeChild(timeOut.firstChild);
-			timeOut.appendChild(document.createTextNode(curTime));
-		}, 1000);
+			if(0 != curTime){
+				timeOut.removeChild(timeOut.firstChild);
+				timeOut.appendChild(document.createTextNode(curTime));
+			}
+		}, 1000 * interval);
 	});
 </script>
 </head>
 <body>
 <p>
-Refresh to get the newest results. Automatic refresh in <span id="time-out">10</span> second(s).
+Refresh to get the newest results. Automatically refresh in <span id="time-out">10</span> second(s).
 </p>
 <div>
 <table>

@@ -1,24 +1,26 @@
 package com.mec.ejb.dao;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import com.mec.pojo.entity.Seat;
 
 //@SessionScoped
-@RequestScoped
+@ApplicationScoped
 //@Singleton
 //@Stateless
-public class SeatProducer implements Serializable{
+public class SeatsProducer implements Serializable{
 	
 	private static final long serialVersionUID = 6846741836452186914L;
 
@@ -40,7 +42,7 @@ public class SeatProducer implements Serializable{
 //	@Named
 	@Default
 	public List<Seat> getSeats(){
-		return seats;
+		return Collections.unmodifiableList(seats);
 	}
 	
 	public void onMemeberListChanged(@Observes(notifyObserver=Reception.IF_EXISTS) final Seat member){
