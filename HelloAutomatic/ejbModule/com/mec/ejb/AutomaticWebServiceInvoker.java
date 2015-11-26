@@ -29,16 +29,17 @@ public class AutomaticWebServiceInvoker {
 	
 	private static final String targetNamespace = "http://www.mec.com/";
 	private static final String serviceName = "greeting";
-	private static final String portName = "GreetingService";
-	private static final String wsdlUrl = String.format("http://localhost:8080/HelloWS/%s/%s?wsdl", serviceName, portName);
+	private static final String name = "GreetingService";
+//	private static final String currentIP = "10.39.101.168";	//for example;
+	private static final String wsdlUrl = String.format("http://%s:8080/HelloWS/%s/%s?wsdl", "localhost", serviceName, name);
 	private Greetings greeting;
 	
 	@PostConstruct
 	public void init(){
 		try {
 			QName qname = new QName(targetNamespace, serviceName);
-			URL serviceUrl = new URL(wsdlUrl);
-			Service greetingService = Service.create(serviceUrl, qname);
+			URL url = new URL(wsdlUrl);
+			Service greetingService = Service.create(url, qname);
 			greeting = greetingService.getPort(Greetings.class);
 		} catch (MalformedURLException e) {
 			logger.error("URL error", e);
