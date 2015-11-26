@@ -15,7 +15,7 @@ import com.mec.pojo.entity.Seat;
 import com.mec.pojo.entity.SeatType;
 import com.mec.pojo.entity.SeatType.SeatPosition;
 
-@Singleton
+//@Singleton
 @Startup
 public class AutomaticSeatsManager {
 	

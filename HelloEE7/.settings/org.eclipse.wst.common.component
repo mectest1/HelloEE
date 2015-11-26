@@ -17,10 +17,6 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="HelloClientApp.jar" deploy-path="/" handle="module:/resource/HelloClientApp/HelloClientApp">
-            <dependent-object/>
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="HelloJPA.jar" deploy-path="/lib" handle="module:/resource/HelloJPA/HelloJPA">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -28,7 +24,8 @@
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="HelloWS.jar" deploy-path="/lib" handle="module:/resource/HelloWS/HelloWS">
+        <dependent-module archiveName="HelloWS.jar" deploy-path="/" handle="module:/resource/HelloWS/HelloWS">
+            <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
