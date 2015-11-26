@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
+import javax.resource.spi.Activation;
 
 import com.mec.ejb.config.MessageQueueDefinition;
 import com.mec.ejb.dao.SeatsProducer;
@@ -33,6 +34,7 @@ import com.mec.ejb.inter.Logger;
 				 @ActivationConfigProperty(propertyName="destinationType", propertyValue="javax.jms.Queue")
 				,@ActivationConfigProperty(propertyName="destinationLookup", propertyValue=MessageQueueDefinition.SEATS_QUEUE)
 //				,@ActivationConfigProperty(propertyName="destinationName", propertyValue=MessageQueueDefinition.SEATS_QUEUE_NAME)
+				,@ActivationConfigProperty(propertyName="messageSelector", propertyValue="priority='LOW'")
 		})
 public class SeatsMessageConsumer implements MessageListener {
 

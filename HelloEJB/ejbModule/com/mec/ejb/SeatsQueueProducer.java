@@ -27,6 +27,14 @@ public class SeatsQueueProducer extends MessageQueueProducer{
 	@Resource(mappedName=MessageQueueDefinition.SEATS_QUEUE)
 	private Queue syncQueue;
 	
+	
+	
+	@Override
+	public void sendMessage(String txt) {
+//		super.sendMessage(txt);
+		context.createProducer().setProperty(MSG_PROP_PRIORITY, Priority.LOW.toString()).send(getQueue(), txt);
+	}
+
 	@Override
 	protected Queue getQueue() {
 		return syncQueue;

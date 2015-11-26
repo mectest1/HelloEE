@@ -9,6 +9,13 @@ import com.mec.ejb.inter.MessageDispatcher;
 
 public abstract class MessageQueueProducer implements MessageDispatcher {
 
+	public static final String MSG_PROP_PRIORITY = "priority";
+	public static enum Priority{
+		 LOW
+		,HIGH
+		;
+	}
+	
 	@Override
 	public void sendMessage(String txt){
 		Queue syncQueue = getQueue();
@@ -23,7 +30,9 @@ public abstract class MessageQueueProducer implements MessageDispatcher {
 
 
 	@Inject
-	private JMSContext context;
+//	@Resource	
+	//error message:Error injecting resource into CDI managed bean. Can't find a resource named java:comp/env/com.mec.ejb.MessageQueueProducer/context
+	protected JMSContext context;
 	
 	protected abstract Queue getQueue();
 	protected abstract CompletionListener getCompletionListener();
