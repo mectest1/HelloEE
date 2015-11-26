@@ -28,7 +28,7 @@ import javax.jws.soap.SOAPBinding.Style;
  * 
  *
  */
-@WebService(targetNamespace="http://www.mec.com/", serviceName=CalculateWebService.SERVICE_NAME)
+@WebService(targetNamespace=WSConstants.TARGET_NAMESPACE, serviceName=CalculateWebService.SERVICE_NAME)
 @SOAPBinding(style=Style.RPC)
 @Singleton
 @Startup

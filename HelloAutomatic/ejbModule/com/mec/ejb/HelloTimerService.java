@@ -5,12 +5,12 @@ import javax.ejb.Stateless;
 import javax.ejb.Timer;
 
 //@Stateless
-public class TimerService {
+public class HelloTimerService {
 
     /**
      * Default constructor. 
      */
-    public TimerService() {
+    public HelloTimerService() {
         // TODO Auto-generated constructor stub
     }
 	
