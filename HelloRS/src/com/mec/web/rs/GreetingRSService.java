@@ -9,18 +9,20 @@ import com.mec.ejb.inter.Greetings;
 
 @Path("/greetings")
 //@Produces(MediaType.APPLICATION_JSON)
-public class GreetingService {
+public class GreetingRSService {
 
 	@GET		//without it, will get this error: Subresource for target class has no jax-rs annotations.: java.lang.String
-	@Path("/")
+//	@Path("/")
 	public String greeting(){
 		return greetings.greeting();
 	}
 	
 	@GET
-	@Path("/{name}")
+	@Path("/{name}")	
+	//Q: What about input a path more than a simple {name}?
+	//failed to execute: javax.ws.rs.NotFoundException: Could not find resource for full path: http://localhost:8080/HelloRS/greetings/derp/yep
 	public String greeting(@PathParam("name") String name){
-		return String.format("%s %s", greeting(), name);
+		return String.format("%s for %s", greeting(), name);
 	}
 	
 	

@@ -6,10 +6,10 @@ import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.resource.spi.Activation;
 
 import com.mec.ejb.config.MessageQueueDefinition;
 import com.mec.ejb.dao.SeatsProducer;
+import com.mec.ejb.inter.FromJBoss;
 import com.mec.ejb.inter.Logger;
 
 /**

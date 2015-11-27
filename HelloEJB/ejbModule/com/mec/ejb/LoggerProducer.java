@@ -35,4 +35,11 @@ public class LoggerProducer {
 		logger.setLogger(org.jboss.logging.Logger.getLogger(injectionPoint.getMember().getDeclaringClass()));
 		return logger;
 	}
+	
+//	@Produces
+////	@FromLog4j
+//	@Default
+//	public Logger produceLoggerLog4j(InjectionPoint injectionPoing){
+//		return null;	//log4j
+//	}
 }
