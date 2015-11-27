@@ -16,7 +16,7 @@ import javax.xml.ws.Service;
 import com.mec.ejb.inter.Greetings;
 import com.mec.ejb.inter.Logger;
 
-@Singleton
+//@Singleton
 @Startup
 public class AutomaticWebServiceInvoker {
 	
