@@ -12,7 +12,8 @@ import javax.ws.rs.Path;
 
 public class ZipFileReader {
 
-	public static void main(String[] args) throws Exception{
+	public static void unzipList(String zipFilePath, String tempDir) throws Exception{
+		
 		File pathDirectory = new File(pathDir);
 		if(!pathDirectory.exists()){
 			pathDirectory.mkdirs();
@@ -21,10 +22,10 @@ public class ZipFileReader {
 		extractZipFile(new File(path));
 	}
 	
-	static void extractZipFile(File path) throws Exception{
+	public static void extractZipFile(File path) throws Exception{
 		int bufferSize = 2048;
 		int count = 0;
-		out.printf("----------------zip file: %s\n", path);
+//		out.printf("----------------zip file: %s\n", path);
 		FileInputStream fis = new FileInputStream(path);
 		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(fis));
 		ZipEntry entry;
@@ -32,7 +33,7 @@ public class ZipFileReader {
 		File tmpFile = null;
 		byte[] data = null;
 		while(null != (entry = zis.getNextEntry())){
-			out.println(entry.getName());
+//			out.println(entry.getName());
 			if(!isZipFile(entry.getName())){
 				continue;
 			}
@@ -60,7 +61,9 @@ public class ZipFileReader {
 		return name.endsWith(".war");
 	}
 	
-	static final String pathDir = "E:/Users/MEC/Music/2015-11-27_Season/tmp/";
-	static final String path = "E:/Users/MEC/Music/2015-11-27_Season/CE.ear";
-	private static final PrintStream out = System.out;
+	static String pathDir;
+	static String path;
+//	static final String pathDir = "E:/Users/MEC/Music/2015-11-27_Season/tmp/";
+//	static final String path = "E:/Users/MEC/Music/2015-11-27_Season/CE.ear";
+//	private static final PrintStream out = System.out;
 }
