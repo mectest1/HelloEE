@@ -14,7 +14,8 @@ import com.mec.ejb.dao.SeatDAO;
 import com.mec.pojo.entity.Seat;
 
 @Path("/seats")
-@Produces(MediaType.APPLICATION_JSON)
+//@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_XML)
 @RequestScoped
 public class SeatsService {
 
@@ -24,11 +25,12 @@ public class SeatsService {
 		return seats;
 	}
 
-	@Path("/query/{id}")
-	@GET
-	public Seat getSeat(@PathParam("id") int id){
-		return seatDao.find(id);
-	}
+//	@Path("/query/{id}")
+//	@GET
+//	public Seat getSeat(@PathParam("id") int id){
+//		Seat retval = seatDao.find(id);
+//		return retval;
+//	}
 	
 	@Inject
 	private List<Seat> seats;

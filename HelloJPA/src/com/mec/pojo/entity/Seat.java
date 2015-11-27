@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: Seat
@@ -21,6 +23,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name="SEAT")
+//@XmlRootElement
 public class Seat implements Serializable {
 
 	
@@ -39,9 +42,13 @@ public class Seat implements Serializable {
    
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@XmlAttribute(required=true)
 	private int id;
+//	@XmlAttribute
 	private String name;
+//	@XmlAttribute
 	private int price;
+//	@XmlAttribute
 	private boolean booked;
 	
 	@Transient
@@ -49,6 +56,7 @@ public class Seat implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="SEAT_ID")
+//	@XmlAttribute
 	private SeatType seatType;
 	
 	public Seat(int id, String type, int price) {

@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Entity implementation class for Entity: SeatType
@@ -24,6 +27,7 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name="SEAT_TYPE")
+//@XmlRootElement
 public class SeatType implements Serializable {
 
 	
@@ -31,17 +35,21 @@ public class SeatType implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@XmlAttribute(required=true)
 	private Long id;
 	
 	@NotNull
 	@Size(min = 1, max = 25, message = "You need to enter a Seat Description (max 25 char)")
 	@Pattern(regexp = "[A-za-z ]*", message="Description must contain only letters and spaces")
+//	@XmlElement(nillable=false)
 	private String description;
 	
 	@NotNull
+//	@XmlAttribute(required=true)
 	private int price;
 	
 	@NotNull	
+//	@XmlAttribute(required=true)
 	private int quantity;	
 	
 	
